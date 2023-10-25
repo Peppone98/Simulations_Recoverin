@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mpiprocs=24:mem=1GB
+#PBS -l walltime=01:00:00
+#PBS -q short_cpuQ
+#PBS -N ala_meta_phi
+#PBS -o ala_meta_phi_out
+#PBS -e ala_meta_phi_err
+
+cd $PBS_O_WORKDIR
+
+source /home/giuseppe.gambini/usr/src/gmx_plumed.sh
+
+export OMP_NUM_THREADS=1
+
+mpirun -np 24 gmx_mpi mdrun -s md_plumed.tpr -plumed ala_meta.dat

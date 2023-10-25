@@ -1,0 +1,255 @@
+;
+;	File 'topol_Other3.itp' was generated
+;	By user: giuseppegambini (501)
+;	On host: MacBook-Air-di-Giuseppe.local
+;	At date: Tue Oct 24 20:40:05 2023
+;
+;	This is a include topology file
+;
+;	Created by:
+;	            :-) GROMACS - gmx pdb2gmx, 2021.4-giuseppegambini (-:
+;	
+;	Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+;	Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+;	Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/nmRec_Ca_GRK1
+;	Command line:
+;	  gmx pdb2gmx -f nmRec_GRK1.pdb -o nmRec_ions_solv_GRK1.gro -ter yes
+;	Force field was read from current directory or a relative path - path added.
+;
+
+[ moleculetype ]
+; Name            nrexcl
+Other3              3
+
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue 8863 POT rtp POT  q +1.0
+     1        POT   8863    POT    POT      1          1    39.0983   ; qtot 1
+; residue 8864 POT rtp POT  q +1.0
+     2        POT   8864    POT    POT      2          1    39.0983   ; qtot 2
+; residue 8865 POT rtp POT  q +1.0
+     3        POT   8865    POT    POT      3          1    39.0983   ; qtot 3
+; residue 8866 POT rtp POT  q +1.0
+     4        POT   8866    POT    POT      4          1    39.0983   ; qtot 4
+; residue 8867 POT rtp POT  q +1.0
+     5        POT   8867    POT    POT      5          1    39.0983   ; qtot 5
+; residue 8868 POT rtp POT  q +1.0
+     6        POT   8868    POT    POT      6          1    39.0983   ; qtot 6
+; residue 8869 POT rtp POT  q +1.0
+     7        POT   8869    POT    POT      7          1    39.0983   ; qtot 7
+; residue 8870 POT rtp POT  q +1.0
+     8        POT   8870    POT    POT      8          1    39.0983   ; qtot 8
+; residue 8871 POT rtp POT  q +1.0
+     9        POT   8871    POT    POT      9          1    39.0983   ; qtot 9
+; residue 8872 POT rtp POT  q +1.0
+    10        POT   8872    POT    POT     10          1    39.0983   ; qtot 10
+; residue 8873 POT rtp POT  q +1.0
+    11        POT   8873    POT    POT     11          1    39.0983   ; qtot 11
+; residue 8874 POT rtp POT  q +1.0
+    12        POT   8874    POT    POT     12          1    39.0983   ; qtot 12
+; residue 8875 POT rtp POT  q +1.0
+    13        POT   8875    POT    POT     13          1    39.0983   ; qtot 13
+; residue 8876 POT rtp POT  q +1.0
+    14        POT   8876    POT    POT     14          1    39.0983   ; qtot 14
+; residue 8877 POT rtp POT  q +1.0
+    15        POT   8877    POT    POT     15          1    39.0983   ; qtot 15
+; residue 8878 POT rtp POT  q +1.0
+    16        POT   8878    POT    POT     16          1    39.0983   ; qtot 16
+; residue 8879 POT rtp POT  q +1.0
+    17        POT   8879    POT    POT     17          1    39.0983   ; qtot 17
+; residue 8880 POT rtp POT  q +1.0
+    18        POT   8880    POT    POT     18          1    39.0983   ; qtot 18
+; residue 8881 POT rtp POT  q +1.0
+    19        POT   8881    POT    POT     19          1    39.0983   ; qtot 19
+; residue 8882 POT rtp POT  q +1.0
+    20        POT   8882    POT    POT     20          1    39.0983   ; qtot 20
+; residue 8883 POT rtp POT  q +1.0
+    21        POT   8883    POT    POT     21          1    39.0983   ; qtot 21
+; residue 8884 POT rtp POT  q +1.0
+    22        POT   8884    POT    POT     22          1    39.0983   ; qtot 22
+; residue 8885 POT rtp POT  q +1.0
+    23        POT   8885    POT    POT     23          1    39.0983   ; qtot 23
+; residue 8886 POT rtp POT  q +1.0
+    24        POT   8886    POT    POT     24          1    39.0983   ; qtot 24
+; residue 8887 POT rtp POT  q +1.0
+    25        POT   8887    POT    POT     25          1    39.0983   ; qtot 25
+; residue 8888 POT rtp POT  q +1.0
+    26        POT   8888    POT    POT     26          1    39.0983   ; qtot 26
+; residue 8889 POT rtp POT  q +1.0
+    27        POT   8889    POT    POT     27          1    39.0983   ; qtot 27
+; residue 8890 POT rtp POT  q +1.0
+    28        POT   8890    POT    POT     28          1    39.0983   ; qtot 28
+; residue 8891 POT rtp POT  q +1.0
+    29        POT   8891    POT    POT     29          1    39.0983   ; qtot 29
+; residue 8892 POT rtp POT  q +1.0
+    30        POT   8892    POT    POT     30          1    39.0983   ; qtot 30
+; residue 8893 POT rtp POT  q +1.0
+    31        POT   8893    POT    POT     31          1    39.0983   ; qtot 31
+; residue 8894 POT rtp POT  q +1.0
+    32        POT   8894    POT    POT     32          1    39.0983   ; qtot 32
+; residue 8895 POT rtp POT  q +1.0
+    33        POT   8895    POT    POT     33          1    39.0983   ; qtot 33
+; residue 8896 POT rtp POT  q +1.0
+    34        POT   8896    POT    POT     34          1    39.0983   ; qtot 34
+; residue 8897 POT rtp POT  q +1.0
+    35        POT   8897    POT    POT     35          1    39.0983   ; qtot 35
+; residue 8898 POT rtp POT  q +1.0
+    36        POT   8898    POT    POT     36          1    39.0983   ; qtot 36
+; residue 8899 POT rtp POT  q +1.0
+    37        POT   8899    POT    POT     37          1    39.0983   ; qtot 37
+; residue 8900 POT rtp POT  q +1.0
+    38        POT   8900    POT    POT     38          1    39.0983   ; qtot 38
+; residue 8901 POT rtp POT  q +1.0
+    39        POT   8901    POT    POT     39          1    39.0983   ; qtot 39
+; residue 8902 POT rtp POT  q +1.0
+    40        POT   8902    POT    POT     40          1    39.0983   ; qtot 40
+; residue 8903 POT rtp POT  q +1.0
+    41        POT   8903    POT    POT     41          1    39.0983   ; qtot 41
+; residue 8904 POT rtp POT  q +1.0
+    42        POT   8904    POT    POT     42          1    39.0983   ; qtot 42
+; residue 8905 POT rtp POT  q +1.0
+    43        POT   8905    POT    POT     43          1    39.0983   ; qtot 43
+; residue 8906 POT rtp POT  q +1.0
+    44        POT   8906    POT    POT     44          1    39.0983   ; qtot 44
+; residue 8907 POT rtp POT  q +1.0
+    45        POT   8907    POT    POT     45          1    39.0983   ; qtot 45
+; residue 8908 POT rtp POT  q +1.0
+    46        POT   8908    POT    POT     46          1    39.0983   ; qtot 46
+; residue 8909 POT rtp POT  q +1.0
+    47        POT   8909    POT    POT     47          1    39.0983   ; qtot 47
+; residue 8910 POT rtp POT  q +1.0
+    48        POT   8910    POT    POT     48          1    39.0983   ; qtot 48
+; residue 8911 POT rtp POT  q +1.0
+    49        POT   8911    POT    POT     49          1    39.0983   ; qtot 49
+; residue 8912 POT rtp POT  q +1.0
+    50        POT   8912    POT    POT     50          1    39.0983   ; qtot 50
+; residue 8913 POT rtp POT  q +1.0
+    51        POT   8913    POT    POT     51          1    39.0983   ; qtot 51
+; residue 8914 POT rtp POT  q +1.0
+    52        POT   8914    POT    POT     52          1    39.0983   ; qtot 52
+; residue 8915 POT rtp POT  q +1.0
+    53        POT   8915    POT    POT     53          1    39.0983   ; qtot 53
+; residue 8916 POT rtp POT  q +1.0
+    54        POT   8916    POT    POT     54          1    39.0983   ; qtot 54
+; residue 8917 POT rtp POT  q +1.0
+    55        POT   8917    POT    POT     55          1    39.0983   ; qtot 55
+; residue 8918 CLA rtp CLA  q -1.0
+    56        CLA   8918    CLA    CLA     56         -1      35.45   ; qtot 54
+; residue 8919 CLA rtp CLA  q -1.0
+    57        CLA   8919    CLA    CLA     57         -1      35.45   ; qtot 53
+; residue 8920 CLA rtp CLA  q -1.0
+    58        CLA   8920    CLA    CLA     58         -1      35.45   ; qtot 52
+; residue 8921 CLA rtp CLA  q -1.0
+    59        CLA   8921    CLA    CLA     59         -1      35.45   ; qtot 51
+; residue 8922 CLA rtp CLA  q -1.0
+    60        CLA   8922    CLA    CLA     60         -1      35.45   ; qtot 50
+; residue 8923 CLA rtp CLA  q -1.0
+    61        CLA   8923    CLA    CLA     61         -1      35.45   ; qtot 49
+; residue 8924 CLA rtp CLA  q -1.0
+    62        CLA   8924    CLA    CLA     62         -1      35.45   ; qtot 48
+; residue 8925 CLA rtp CLA  q -1.0
+    63        CLA   8925    CLA    CLA     63         -1      35.45   ; qtot 47
+; residue 8926 CLA rtp CLA  q -1.0
+    64        CLA   8926    CLA    CLA     64         -1      35.45   ; qtot 46
+; residue 8927 CLA rtp CLA  q -1.0
+    65        CLA   8927    CLA    CLA     65         -1      35.45   ; qtot 45
+; residue 8928 CLA rtp CLA  q -1.0
+    66        CLA   8928    CLA    CLA     66         -1      35.45   ; qtot 44
+; residue 8929 CLA rtp CLA  q -1.0
+    67        CLA   8929    CLA    CLA     67         -1      35.45   ; qtot 43
+; residue 8930 CLA rtp CLA  q -1.0
+    68        CLA   8930    CLA    CLA     68         -1      35.45   ; qtot 42
+; residue 8931 CLA rtp CLA  q -1.0
+    69        CLA   8931    CLA    CLA     69         -1      35.45   ; qtot 41
+; residue 8932 CLA rtp CLA  q -1.0
+    70        CLA   8932    CLA    CLA     70         -1      35.45   ; qtot 40
+; residue 8933 CLA rtp CLA  q -1.0
+    71        CLA   8933    CLA    CLA     71         -1      35.45   ; qtot 39
+; residue 8934 CLA rtp CLA  q -1.0
+    72        CLA   8934    CLA    CLA     72         -1      35.45   ; qtot 38
+; residue 8935 CLA rtp CLA  q -1.0
+    73        CLA   8935    CLA    CLA     73         -1      35.45   ; qtot 37
+; residue 8936 CLA rtp CLA  q -1.0
+    74        CLA   8936    CLA    CLA     74         -1      35.45   ; qtot 36
+; residue 8937 CLA rtp CLA  q -1.0
+    75        CLA   8937    CLA    CLA     75         -1      35.45   ; qtot 35
+; residue 8938 CLA rtp CLA  q -1.0
+    76        CLA   8938    CLA    CLA     76         -1      35.45   ; qtot 34
+; residue 8939 CLA rtp CLA  q -1.0
+    77        CLA   8939    CLA    CLA     77         -1      35.45   ; qtot 33
+; residue 8940 CLA rtp CLA  q -1.0
+    78        CLA   8940    CLA    CLA     78         -1      35.45   ; qtot 32
+; residue 8941 CLA rtp CLA  q -1.0
+    79        CLA   8941    CLA    CLA     79         -1      35.45   ; qtot 31
+; residue 8942 CLA rtp CLA  q -1.0
+    80        CLA   8942    CLA    CLA     80         -1      35.45   ; qtot 30
+; residue 8943 CLA rtp CLA  q -1.0
+    81        CLA   8943    CLA    CLA     81         -1      35.45   ; qtot 29
+; residue 8944 CLA rtp CLA  q -1.0
+    82        CLA   8944    CLA    CLA     82         -1      35.45   ; qtot 28
+; residue 8945 CLA rtp CLA  q -1.0
+    83        CLA   8945    CLA    CLA     83         -1      35.45   ; qtot 27
+; residue 8946 CLA rtp CLA  q -1.0
+    84        CLA   8946    CLA    CLA     84         -1      35.45   ; qtot 26
+; residue 8947 CLA rtp CLA  q -1.0
+    85        CLA   8947    CLA    CLA     85         -1      35.45   ; qtot 25
+; residue 8948 CLA rtp CLA  q -1.0
+    86        CLA   8948    CLA    CLA     86         -1      35.45   ; qtot 24
+; residue 8949 CLA rtp CLA  q -1.0
+    87        CLA   8949    CLA    CLA     87         -1      35.45   ; qtot 23
+; residue 8950 CLA rtp CLA  q -1.0
+    88        CLA   8950    CLA    CLA     88         -1      35.45   ; qtot 22
+; residue 8951 CLA rtp CLA  q -1.0
+    89        CLA   8951    CLA    CLA     89         -1      35.45   ; qtot 21
+; residue 8952 CLA rtp CLA  q -1.0
+    90        CLA   8952    CLA    CLA     90         -1      35.45   ; qtot 20
+; residue 8953 CLA rtp CLA  q -1.0
+    91        CLA   8953    CLA    CLA     91         -1      35.45   ; qtot 19
+; residue 8954 CLA rtp CLA  q -1.0
+    92        CLA   8954    CLA    CLA     92         -1      35.45   ; qtot 18
+; residue 8955 CLA rtp CLA  q -1.0
+    93        CLA   8955    CLA    CLA     93         -1      35.45   ; qtot 17
+; residue 8956 CLA rtp CLA  q -1.0
+    94        CLA   8956    CLA    CLA     94         -1      35.45   ; qtot 16
+; residue 8957 CLA rtp CLA  q -1.0
+    95        CLA   8957    CLA    CLA     95         -1      35.45   ; qtot 15
+; residue 8958 CLA rtp CLA  q -1.0
+    96        CLA   8958    CLA    CLA     96         -1      35.45   ; qtot 14
+; residue 8959 CLA rtp CLA  q -1.0
+    97        CLA   8959    CLA    CLA     97         -1      35.45   ; qtot 13
+; residue 8960 CLA rtp CLA  q -1.0
+    98        CLA   8960    CLA    CLA     98         -1      35.45   ; qtot 12
+; residue 8961 CLA rtp CLA  q -1.0
+    99        CLA   8961    CLA    CLA     99         -1      35.45   ; qtot 11
+; residue 8962 CLA rtp CLA  q -1.0
+   100        CLA   8962    CLA    CLA    100         -1      35.45   ; qtot 10
+; residue 8963 CLA rtp CLA  q -1.0
+   101        CLA   8963    CLA    CLA    101         -1      35.45   ; qtot 9
+; residue 8964 CLA rtp CLA  q -1.0
+   102        CLA   8964    CLA    CLA    102         -1      35.45   ; qtot 8
+; residue 8965 CLA rtp CLA  q -1.0
+   103        CLA   8965    CLA    CLA    103         -1      35.45   ; qtot 7
+; residue 8966 CLA rtp CLA  q -1.0
+   104        CLA   8966    CLA    CLA    104         -1      35.45   ; qtot 6
+; residue 8967 CLA rtp CLA  q -1.0
+   105        CLA   8967    CLA    CLA    105         -1      35.45   ; qtot 5
+; residue 8968 CLA rtp CLA  q -1.0
+   106        CLA   8968    CLA    CLA    106         -1      35.45   ; qtot 4
+; residue 8969 CLA rtp CLA  q -1.0
+   107        CLA   8969    CLA    CLA    107         -1      35.45   ; qtot 3
+; residue 8970 CLA rtp CLA  q -1.0
+   108        CLA   8970    CLA    CLA    108         -1      35.45   ; qtot 2
+; residue 8971 CLA rtp CLA  q -1.0
+   109        CLA   8971    CLA    CLA    109         -1      35.45   ; qtot 1
+; residue 8972 CLA rtp CLA  q -1.0
+   110        CLA   8972    CLA    CLA    110         -1      35.45   ; qtot 0
+; residue 8973 MG  rtp MG   q +2.0
+   111         MG   8973     MG     MG    111          2     24.305   ; qtot 2
+; residue 8974 MG  rtp MG   q +2.0
+   112         MG   8974     MG     MG    112          2     24.305   ; qtot 4
+
+; Include Position restraint file
+#ifdef POSRES
+#include "posre_Other3.itp"
+#endif
+
