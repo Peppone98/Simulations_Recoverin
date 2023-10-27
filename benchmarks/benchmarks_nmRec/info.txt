@@ -1,0 +1,27 @@
+SHORT DESCRIPTION OF THE BENCHMARKS
+
+
+- Walltime: 5 minutes
+- Queue: short_cpuQ
+
+
+Simulated system: 
+- Non-myristoylated Recoverin (without the peptide GRK1) in complex with two Calcium ions
+- .gro file: rec_r_nm_solv_ions.gro
+- Number of atoms: 59330
+- Dimensions of the box: [7.34900   8.20900  10.06600]
+
+
+
+Parameters of the short metadynamics simulations:
+- CV: distance between COM of coordinant oxygens and Ca2+ ion
+- Pace of deposition of the Gaussian: every 100 steps (which correspond to 0.2 ps)
+- Height of the Gaussians: 1.2 kJ/mol
+- Standard deviation sigma: 0.007 (deduced from the unbiased simulations)
+- Bias factor: 8
+
+
+Observations:
+- The pace of deposition of the Gaussian is very quick since I wanted to test the communication between GROMACS and PLUMED
+- As a rule of thumb, the height is normally chosen as kT/2
+- Usually the bias factor is in the range [5, 10]
