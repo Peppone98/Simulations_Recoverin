@@ -51,3 +51,4 @@ We produce a run of 20 ns (it can be further expanded). The idea is to use the e
 ```
 gmx grompp -f mdp/md.mdp -c npt.gro -p topol.top -o md.tpr
 ```
+PLEASE, BE CAREFUL: when you restart the simulation you have to use the last checkpoint `md.cpt` and not the previous checkpoint `md_prev.cpt` ! 
