@@ -1,0 +1,46 @@
+MOLINFO STRUCTURE=reference.pdb 
+c1: CENTER ATOMS=1175,1196,1222,1245,1330,1331
+c2: CENTER ATOMS=3262
+d1: DISTANCE ATOMS=c1,c2
+coord: COORDINATION GROUPA=c1 GROUPB=c2 R_0=0.12 D_0=0.25 NN=6 MM=12
+
+# Activate well-tempered metadynamics in d1
+metad: METAD ARG=d1 ...
+   FREQUENCY_ADAPTIVE
+   ACCELERATION
+   FA_MAX_PACE=5000
+   FA_MIN_ACCELERATION=100000
+   # Deposit a Gaussian every 10000000 time steps (never!), with initial height equal to 0.0 kJ/mol 
+   PACE=10000000 
+   HEIGHT=0.0 
+   BIASFACTOR=10
+   SIGMA=0.007
+   # Gaussians will be written to file and also stored on grid 
+   FILE=HILLS 
+   GRID_MIN=0
+   GRID_MAX=1.6
+   # Say that METAD should be restarting (= reading an existing HILLS file) 
+   CALC_RCT
+   RESTART=YES
+...
+
+# Use the metadynamics rbias as argument (see the article by Parrinello)
+as: REWEIGHT_BIAS ARG=metad.rbias 
+
+# Calculate histograms of d1 and coord dihedrals every 1 steps
+hhd1: HISTOGRAM ARG=d1 STRIDE=1 GRID_MIN=0 GRID_MAX=1.6 GRID_BIN=100 BANDWIDTH=0.12 LOGWEIGHTS=as 
+hhcoord: HISTOGRAM ARG=coord STRIDE=1 GRID_MIN=0 GRID_MAX=1.6 GRID_BIN=100 BANDWIDTH=0.12 LOGWEIGHTS=as 
+
+# Convert histograms h(s) to free energies F(s) = -kBT * log(h(s))
+ffd1: CONVERT_TO_FES GRID=hhd1 
+ffcoord: CONVERT_TO_FES GRID=hhcoord 
+
+# Print out the free energies F(s) to file once the entire trajectory is processed
+DUMPGRID GRID=ffd1 FILE=ffd1.dat 
+DUMPGRID GRID=ffcoord FILE=ffcoord.dat 
+
+# Print out the values of phi, psi and the metadynamics bias potential
+PRINT ARG=d1,coord,metad.rbias FILE=COLVAR_REWEIGHT STRIDE=1
+
+# You can call this script with 
+# plumed driver --mf_xtc traj_comp.xtc --plumed rw_2.dat

@@ -1,0 +1,27 @@
+# Read COLVAR file
+distance: READ FILE=COLVAR IGNORE_TIME VALUES=d1 
+metad: READ FILE=COLVAR IGNORE_TIME VALUES=metad.rbias 
+ 
+# Define weights
+weights1: REWEIGHT_METAD TEMP=310 ARG=metad.rbias
+
+# Calculate histogram
+hh1: HISTOGRAM ...
+   ARG=distance 
+   GRID_MIN=0 
+   GRID_MAX=0.4 
+   GRID_BIN=800 
+   BANDWIDTH=1 
+   LOGWEIGHTS=weights1   
+...
+
+# Print histograms to file
+DUMPGRID GRID=hh1 FILE=histo FMT=%24.16e 
+
+# Convert histograms h(s) to free energies F(s) = -kBT * log(h(s))
+ffd1: CONVERT_TO_FES GRID=hh1 TEMP=310
+
+# Print out the free energies F(s)
+DUMPGRID GRID=ffd1 FILE=ffd1.dat 
+
+# Can be called with "plumed driver --plumed rw_1.dat --noatoms > plumed.out"
