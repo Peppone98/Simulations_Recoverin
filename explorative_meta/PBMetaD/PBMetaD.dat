@@ -1,0 +1,33 @@
+MOLINFO STRUCTURE=reference.pdb 
+
+# Define the group of atoms 
+c1: CENTER ATOMS=1175,1196,1222,1245,1330,1331
+c2: CENTER ATOMS=3262
+d1: DISTANCE ATOMS=c1,c2
+
+# Define the coordination number 
+coord: COORDINATION ...
+   GROUPA=c1
+   GROUPB=c2
+   SWITCH={RATIONAL R_0=0.12 D_0=0.25 NN=6 MM=12}
+...
+
+# Define the parallel-bias metadynamics
+pbmetad: PBMETAD ... 
+   ARG=d1,coord
+   PACE=500 
+   HEIGHT=1.2 
+   BIASFACTOR=10  
+   SIGMA=0.007 
+
+   # Double HILLS file
+   FILE=HILLS_d1,HILLS_coord
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=2.2
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+PRINT ARG=d1,coord,pbmetad.bias,pbmetad.rbias,pbmetad.rct FILE=COLVAR STRIDE=100
