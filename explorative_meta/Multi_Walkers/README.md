@@ -27,18 +27,18 @@ Keywords we need to specify:
 - An upper limit to the number of walkers is imposed by the intrinsic diffusivity properties of the system.
 - If the FES is not known a priori, the walkers have to be initialized, in the worst case scenario in the same position. 
 - The error on the reconstructed free energy does not depend on the number of walkers. 
-- The directory in which you state where the HILLS file (files in case of PBMetaD) are in the plumed input depends on whether you are using communication between walkers using the file system or whether you are doing this with MPI. 
+- The directory in which you state where the HILLS file (files in case of PBMetaD) is in the plumed input depends on whether you are employing communication between walkers using the file system or whether you are doing this with MPI. 
 - You will obviously need one directory in your working directory for each walker, named as per your gmx mdrun command. All necessary files (`.tpr` files, plumed inputs and `.ndx` files) need to be in the walker directories.
 
-We can select 4 initial configurations, and then run a multiple walker simulation on each of them. Can we apply a different $\sigma$ on each walker?
+We can select 4 initial configurations, and then run a multiple walker simulation on each of them. Can we apply a different $\sigma$ and different $\tau$ of deposition on each walker?
 
 
-If I have 4 simulations, I will reach a different final configuration in all the cases, but this does not matter, because the aim of the method is to obtain the free energy profile as $-V(s, t)$. 
+If I have 4 simulations, I will reach a different final `state.cpt` configuration in all the cases, but this does not matter, because the aim of the method is to obtain the free energy profile as $-V(s, t)$. 
 
 
 # How should I call gromacs in a `.pbs` file ? 
 ```
-mpirun -np 12 gmx_mpi mdrun --plumed walkers.dat -multidir WALKER0 WALKER1 WALKER2
+mpirun -np 12 gmx_mpi mdrun --plumed walkers.dat -multidir WALKER0 WALKER1 WALKER2 WALKER3
 ```
 With the `-multidir` option, gromacs is able to share the bias across the simulations. 
 ![Alt text](multidir.png)
@@ -49,3 +49,19 @@ One idea is to take a biased run, do a reweight, and see wheter the fluctuations
 Ok, it seems that the $R_g$ pretty much stays the same along both the biased and unbiased simulation. 
 
 In any case I think there is some kind of problem with `comp_traj.xtc`: I can adjust the sampling frequency with `DUMPATOMS`, maybe `STRIDE=10` should be enough.
+
+# Import 
+```
+scp giuseppe.gambini@hpc2.unitn.it:/home/giuseppe.gambini/simulations/explorative_meta/Walkers_MPI/WALKER3/COLVAR.3 ./
+```
+
+In case you want to use plumed on cluster, just do
+```
+module load gcc91
+module load openmpi-3.0.0
+module load BLAS
+module load gsl-2.5
+module load lapack-3.7.0
+module load python-3.8.13 
+source /home/giuseppe.gambini/usr/src/gmx_plumed.sh
+```

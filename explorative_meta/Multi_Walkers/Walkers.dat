@@ -25,12 +25,12 @@ metad: METAD ...
    WALKERS_MPI
 
    # I have 4 subfolders in the working directory
-   WALKERS_DIR=../
+   WALKERS_DIR=.
 
    # Recover the c(t) for reweighting
    CALC_RCT
 ...
-PRINT ARG=d1,metad.bias,metad.rbias,pbmetad.rct FILE=COLVAR STRIDE=100
+PRINT ARG=d1,metad.bias,metad.rbias,metad.rct FILE=COLVAR STRIDE=100
 
 # Save the coordinates of the "interesting" atoms around Ca2+
-DUMPATOMS STRIDE=10 FILE=traj.xtc ATOMS=1000-1545 
+DUMPATOMS STRIDE=100 FILE=traj.xtc ATOMS=1000-1545 
