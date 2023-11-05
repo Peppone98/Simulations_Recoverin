@@ -66,6 +66,11 @@ and
 
 $$\omega_2(t)=\omega_2\exp{\left(-\frac{V(s_2, t)}{k\Delta T}\right)}P(\mathbf{\eta}=(0 1)|\mathbf{R})$$
 
+With this choice, the two bias potentials exactly converge to the correct monodimensional free energies. The full high-dimensional free energy can be easily recovered by applying a reweighting technique. In PBMetaD we have a single time-dependent potential $V_{PB}(s_1, s_2, t)$ that becomes quasi-static in the long limit. Therefore, we should discard the first part of the simulation and then use the umbrella sampling reweighting 
+
+$$w\propto \exp{(-V_{PB}(s_1, s_2, t)/kT)}$$
+
+
 # PBMetaD with walkers
 Additional replicas can be utilized in a multiple-walkers fashion, in which several copies of the system perform a PBMetaD simulation and share the accumulated bias potentials.
 
