@@ -1,3 +1,5 @@
+# Several trails, many errors
+All these trial simulations are performed with the non-mirystoylated Recoverin without GRK1 and without the membrane. 
 
 # Folder organization 
 - The folder `meta_nmRec_1` contains the first metadynamics simulation with a very high rate of deposition (`PACE=100`). The grid $[0, 0.4]$ in this case was chosen too small for our purposes.

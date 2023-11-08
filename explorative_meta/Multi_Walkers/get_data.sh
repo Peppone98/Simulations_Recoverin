@@ -21,6 +21,7 @@ do
   # First we enter the folder
   cp WALKER${n_folders[i]}/D2_CA data
   mv D2_CA D2_CA${n_folders[i]}
+  cp WALKER${n_folders[i]}/COLVAR.${n_folders[i]} data
 done
 
 

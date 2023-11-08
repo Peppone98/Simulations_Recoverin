@@ -24,9 +24,11 @@ Note that as an effect of the extreme coarse graining, the non-bonded interactio
 The minimalist CG models may have from 10 to 100 parameters, including both the "structural parameters" (equilibrium values of the coordinates) and the "energetic parameters" (elastic constants, bonding energies, well depths, barriers, etc...). 
 How can we fix structural parameters by biasing them toward a reference (usually experimental) structure? We take a force field of the form
 
+
 $$U=\sum_i U_{bond}(r_i, r_{i+1})+\sum_i U_{back}(\alpha_i, \theta_i)+\sum_{i<j}U_{nb}^{loc}(r_{ij})+\sum_{i<j}U_{nb}^{non loc}(r_{ij})$$
 
-where the separation into local and non-local parts is generally based on a cutoff radius $r_{cut}$. If you consider a simple elastic model, the $U_{nb}^{nonloc}$ part is absent as well as $U_{back}$. In this case the $U_{bond}$ is clearly an harmonic potential and U_{nb}^{loc} contains the interactions between second and third neighbours (1–3 and 1–4 interactions). 
+
+where the separation into local and non-local parts is generally based on a cutoff radius $r_{cut}$. If you consider a simple elastic model, the $U_{nb}^{nonloc}$ part is absent as well as $U_{back}$. In this case the $U_{bond}$ is clearly an harmonic potential and $U_{nb}^{loc}$ contains the interactions between second and third neighbours (1–3 and 1–4 interactions). 
 
 Once the form of the FF is given , we can get the structural and energetic parameters using three main methods:
 - iterative Boltzmann inversion
