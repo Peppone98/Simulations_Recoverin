@@ -16,8 +16,10 @@ When using `pdb2gmx` we need to use the option `-ter` for the "capping" of the N
 - The box is extended in one direction, as can be noted from the starting `.gro` file: `9.06166   9.06166  14.98092`. 
 
 From the "molecule library" of charmm-gui, we can get the meaning of the misterious residues:
-- `DGPC`: DI-GADOLEIC-PHOSPHATIDYLCHOLINE. We have 260 residues with this name. These atoms represent the membrane!
-- `GLM`: myristoylated glycine N-terminal.
+- `DGPC`: DI-GADOLEIC-PHOSPHATIDYLCHOLINE. 
+- `DGPE`: DI-GADOLEIC-PHOSPHATIDYLETHANOLAMINE
+- `DGPS`: DI-GADOLEIC-PHOSPHATIDYLSERINE. Together with the previous two species, we have 260 residues. These atoms represent the membrane!
+- `GLM`: myristoylated glycine N-terminal
 
 
 ![Alt text](DI-GADOLEIC-PHOSPHATIDYLCHOLINE.png)
@@ -55,11 +57,6 @@ The most important parameter for pressure coupling in membrane is `pcoupltype = 
 
 Remember that the internal pressure is maintained constant by allowing the volume of the simulation box to fluctuate. 
 
-In most simulations of membranes the pressure coupling is limited to the z component, thus keeping fixed the x-y shape of the system.
-
-`nose-hoover`: temperature coupling using a Nose-Hoover extended ensemble. in this case tau-t controls the period of the temperature fluctuations at equilibrium, which is slightly different from a relaxation time. For NVT simulations the conserved energy quantity is written to the energy and log files.
-`tau-t`: time constant for coupling, (one for each group in `tc-grps`).
-`nsttcouple`: the frequency for coupling the temperature. The default value of -1 sets nsttcouple equal to 100, or fewer steps if required for accurate integration (5 steps per tau for first order coupling, 20 steps per `tau` for second order coupling).
 
 ## Energy minimization
 ```
