@@ -2,6 +2,8 @@
 *.xtc
 *.ff
 *.mdp
+*OLVAR
+COLVAR.*
 explorative_meta/meta_nmRec_1/FES
 explorative_meta/Multi_Walkers/data/COLVAR.*
 explorative_meta/Multi_Walkers/FES
