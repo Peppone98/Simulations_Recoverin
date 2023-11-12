@@ -31354,6 +31354,6 @@ Protein             3
 
 ; Include Position restraint file
 #ifdef POSRES
-#include "posre_Protein.itp"
+#include "new_posre_Protein.itp"
 #endif
 

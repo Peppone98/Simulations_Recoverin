@@ -464,6 +464,6 @@ Ion3                3
 
 ; Include Position restraint file
 #ifdef POSRES
-#include "posre_Ion3.itp"
+#include "new_posre_Ion3.itp"
 #endif
 

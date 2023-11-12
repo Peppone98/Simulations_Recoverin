@@ -44,8 +44,7 @@ Therefore, what we have to do is to simply put the `.ff` folder and the `.dat` f
 ## Problem regarding the CMAP torsions
 We first tried a naive procedure and generated the topology with `pdb2gmx`. In this section we describe the error encountered:
 ```
-gmx
- grompp -f mdp/em.mdp -c membr_Rec_ions_solv.gro -p topol.top -o em.tpr
+gmx grompp -f mdp/em.mdp -c membr_Rec_ions_solv.gro -p topol.top -o em.tpr
 ```
 Gromacs has a problem in understanding all the CMAP torsions. The error is: 
 ```

@@ -31,7 +31,7 @@
 ; Position restraint for each water oxygen
 [ position_restraints ]
 ;  i funct       fcx        fcy        fcz
-   1    1       1000       1000       1000
+   1    1       POSRES_SOL       POSRES_SOL       POSRES_SOL
 #endif
 
 ; Include topology for ions

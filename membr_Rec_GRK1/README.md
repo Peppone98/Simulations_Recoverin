@@ -11,66 +11,67 @@ When using `pdb2gmx` we need to use the option `-ter` for the "capping" of the N
 
 
 ## Generation of the `.itp` files 
-
-Now we brutally take the input `.gro` file and create the `.top` and the `.itp` files. 
+Let's open the file `nmRec_GRK1_start.gro` in pyMol. We select `Display->Sequence`. You can also change the representation of the residues by doing `Display->Sequence Mode->Residue Name`. After having done the selection of the residues of the GRK1
 ```
-gmx pdb2gmx -f membr_Rec_GRK1_start.gro -o membr_Rec_GRK1_ions_solv.gro -ter yes
+select atoms, id 3305-3538
+alter (atoms),chain="G"
 ```
-and we have to select `none` when we're asked about capping the first residue and `COOH` for the ending terminus of `Leu-202`. This operation takes approximately 15 minutes on local. 
-
-Let's open the file `nmRec_GRK1_start.gro` in pyMol. We select `Display->Sequence`. You can also change the representation of the residues by doing `Display->Sequence Mode->Residue Name`. After having done the selection of the residues from 203 to 218
+and the lipid membrane
 ```
-select atoms, id 3264-3497
-alter (atoms),chain="GRK1"
+select atoms, id 3539-41238
+alter (atoms),chain="M"
 ```
-we save the `.pdb` file with `Export Molecule` and `Retain Atom id`. We can then proceed with `pdb2gmx`. 
-
+we save the `.pdb` file with `Export Molecule` and `Retain Atom id`. We can then proceed with `pdb2gmx`. Next, we move on to the generation of the topology:
 ```
-gmx pdb2gmx -f nmRec_GRK1.pdb -o nmRec_ions_solv_GRK1.gro -ter yes
+gmx pdb2gmx -f membr_Rec_GRK1.pdb -o membr_Rec_GRK1.gro -ter yes
 ```
 NOTE: this time gromacs will ask you to specify also the termini of the GRK1 peptide! 
 
-
 Here we have another peptide in solution, namely, GRK1. We must treat carefully also its termini. 
 
-## Observations about the `.mdp` files in presence of a membrane
-The most important parameter for pressure coupling in membrane is `pcoupltype = semiisotropic`. This means that the pressure coupling is not completely isotropic, rather we impose an uniform scaling of x-y box vectors, while the z component is independent. We deal with a squared membrane, so we don’t want to obtain a rectangular one at the end of our setup.
-
-
-Remember that the internal pressure is maintained constant by allowing the volume of the simulation box to fluctuate. 
-
-In most simulations of membranes the pressure coupling is limited to the z component, thus keeping fixed the x-y shape of the system.
-
-`nose-hoover`: temperature coupling using a Nose-Hoover extended ensemble. in this case tau-t controls the period of the temperature fluctuations at equilibrium, which is slightly different from a relaxation time. For NVT simulations the conserved energy quantity is written to the energy and log files.
-`tau-t`: time constant for coupling, (one for each group in `tc-grps`).
-`nsttcouple`: the frequency for coupling the temperature. The default value of -1 sets nsttcouple equal to 100, or fewer steps if required for accurate integration (5 steps per tau for first order coupling, 20 steps per `tau` for second order coupling).
-
-## Energy minimization
+Next, we proceed as before
 ```
-gmx grompp -f mdp/em.mdp -c nmRec_ions_solv.gro -p topol.top -o em.tpr
+gmx grompp -f mdp/em.mdp -c membr_Rec_GRK1.gro -p topol.top -o em.tpr
 ```
-Then you can send the `.tpr` on the cluster:
-```
-scp em.tpr giuseppe.gambini@hpc2.unitn.it:/home/giuseppe.gambini/simulations/nmRec_Ca
-```
+
 
 ## NVT equilibration 
-First we download the `.gro` file from the cluster:
+We want to release progressively the restraints on membrane, protein and solvent. We can modify the `posre*.itp` files by replacing 1000 with `POSRES_PROT`, `POSRES_IONS`, `POSRES_MEMBR`, `POSRES_SOLV`.
 ```
-scp giuseppe.gambini@hpc2.unitn.it:/home/giuseppe.gambini/simulations/nmRec_Ca/em.gro ./
+sed -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' posre_Ion2.itp > new_posre_Ion2.itp
+```
+```
+sed -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' posre_Protein.itp > new_posre_Protein.itp
+```
+```
+sed -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' posre_Protein_chain_G.itp > new_posre_Protein_chain_G.itp
+```
+```
+sed -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' posre_Ion3.itp > new_posre_Ion3.itp
+```
+```
+sed -e 's/1000/POSRES_MEMBR/' -e 's/1000/POSRES_MEMBR/' -e 's/1000/POSRES_MEMBR/' posre_Other_chain_M.itp > new_posre_Other_chain_M.itp
 ```
 
-Important: we need to use dispersion correction if the force field was parametrized to use it. Dispersion correction is not used for proteins with the C36 additive FF. I basically used the `.mdp` files reported in the tutorial of JZ4. Then I modified the temperature to 310 K.
+Be careful: if the atom has index 1000, then you must correct that line. 
+
+Now, you have to modify accordingly each topology file by telling gromacs to watch the new files. Moreover, you must also remember the restraint on the water molecules, directly in the principal `topol.top` file.
+
+Now we can go on with 
 ```
-gmx grompp -f mdp/nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+gmx grompp -f mdp/nvt_1.mdp -c em.gro -r em.gro -p topol.top -o nvt_1.tpr
 ```
-The performance here is about 33.107 ns/day.
+Remember to include the important line 
+```
+define = -DPOSRES  -DPOSRES_PROT=1000 -DPOSRES_IONS=1000 -DPOSRES_SOL=1000 -DPOSRES_MEMBR=1000
+```
+in the `.mdp` file (why these start with `-D` is because it mimics the command line argument for the C preprocessor).
+
+I think that 200 ps for each value of the restraints will be enough for the equilibration. 
+
 
 ## NPT equilibration
-```
-gmx grompp -f mdp/npt.mdp -c nvt.gro -r nvt.gro -p topol.top -o npt.tpr
-```
-The performance for 36 cores, 6 MPI processes and 6 OpenMPI threads is much better, about 60.588 ns/day !
+
 
 ## MD production run
 We produce a run of 20 ns (it can be further expanded). The idea is to use the exiting structure `.gro` as the first frame of each metadynamics. Before launching our simulation, we perform a small benchmark (see the `benchmarks` folder).  
