@@ -80,8 +80,63 @@ we save the `.pdb` file with `Export Molecule` and `Retain Atom id`. We can then
 gmx pdb2gmx -f membr_Rec.pdb -o membr_Rec.gro -ter yes
 ```
 
+## NVT equilibration 
+We want to release progressively the restraints on membrane, protein and solvent. We can modify the `posre*.itp` files by replacing 1000 with `POSRES_PROT`, `POSRES_IONS`, `POSRES_MEMBR`, `POSRES_SOLV`.
+```
+sed -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' posre_Ion2.itp > new_posre_Ion2.itp
+```
+```
+sed -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' -e 's/1000/POSRES_PROT/' posre_Protein.itp > new_posre_Protein.itp
+```
+```
+sed -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' -e 's/1000/POSRES_IONS/' posre_Ion3.itp > new_posre_Ion3.itp
+```
+```
+sed -e 's/1000/POSRES_MEMBR/' -e 's/1000/POSRES_MEMBR/' -e 's/1000/POSRES_MEMBR/' posre_Other_chain_M.itp > new_posre_Other_chain_M.itp
+```
+
+Be careful: if the atom has index 1000, then you must correct that line. 
+
+Now, you have to modify accordingly each topology file by telling gromacs to watch the new files. Moreover, you must also remember the restraint on the water molecules, directly in the principal `topol.top` file.
+
+Now we can go on with 
+```
+gmx grompp -f mdp/nvt_1.mdp -c em.gro -r em.gro -p topol.top -o nvt_1.tpr
+```
+Remember to include the important line 
+```
+define = -DPOSRES  -DPOSRES_PROT=1000 -DPOSRES_IONS=1000 -DPOSRES_SOL=1000 -DPOSRES_MEMBR=1000
+```
+in the `.mdp` file (why these start with `-D` is because it mimics the command line argument for the C preprocessor).
+
+I think that 200 ps for each value of the restraints will be enough for the equilibration. Next we will perform a NPT run of 400 ps with the same restraints. We will then perform the same runs again, but with progressively reduced restraints. 
+
+# Equilibration issues 
+It looks like we need an extra equiliibration because the NPT equilibration crashes. There are two possible solutions:
+1. Do another NVT equilibration (around 500 ps) with the same restraints.
+2. Decrease the time-step.
+
+```
+gmx grompp -f mdp/nvt_2.mdp -c nvt_1.gro -r nvt_1.gro -p topol.top -o nvt_2.tpr
+```
+
 
 ## Observations about the `.mdp` files in presence of a membrane
 The most important parameter for pressure coupling in membrane is `pcoupltype = semiisotropic`. This means that the pressure coupling is not completely isotropic, rather we impose an uniform scaling of x-y box vectors, while the z component is independent. We deal with a squared membrane, so we don’t want to obtain a rectangular one at the end of our setup.
 
 Remember that the internal pressure is maintained constant by allowing the volume of the simulation box to fluctuate. 
+
+# NPT equilibrations
+```
+gmx grompp -f mdp/npt_1.mdp -c nvt_1.gro -r nvt_1.gro -p topol.top -o npt_1.tpr
+```
+
+# Problem with the LINCS algorithm 
+When MD works correctly only on one MPI task and crashes on multiple MPI ranks, it may indicate that your molecule isn't whole at the start of a simulation. You need to make the molecule whole again:
+```
+gmx trjconv -f nvt_1.gro -o nvt_1_whole.gro -pbc whole -s nvt_1.tpr
+```
+and regenerate a `.tpr`:
+```
+gmx grompp -f mdp/npt_1.mdp -c nvt_1_whole.gro -r nvt_1_whole.gro -p topol.top -o npt_1.tpr
+```

@@ -70,6 +70,16 @@ in the `.mdp` file (why these start with `-D` is because it mimics the command l
 I think that 200 ps for each value of the restraints will be enough for the equilibration. 
 
 
+# Equilibration issues 
+It looks like we need an extra equiliibration because the NPT equilibration crashes. There are two possible solutions:
+1. Do another NVT equilibration (around 500 ps) with the same restraints.
+2. Decrease the time-step.
+
+```
+gmx grompp -f mdp/nvt_2.mdp -c nvt_1.gro -r nvt_1.gro -p topol.top -o nvt_2.tpr
+```
+
+
 ## NPT equilibration
 
 

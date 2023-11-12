@@ -8,8 +8,8 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/membr_Rec/nvt_1
-file=nvt_1.tpr
+dir=/home/giuseppe.gambini/simulations/membr_Rec/nvt_2
+file=nvt_2.tpr
 
 # if you want to copy on cluster
 scp $file $user@$server:$dir
