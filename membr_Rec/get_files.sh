@@ -8,12 +8,12 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/membr_Rec/nvt_2
-file=nvt_2.tpr
+dir=/home/giuseppe.gambini/simulations/membr_Rec/md
+file=md.gro
 
 # if you want to copy on cluster
-scp $file $user@$server:$dir
+#scp $file $user@$server:$dir
 
 
 #if you want to copy from cluster
-#scp $user@$server:$dir/$file ./
+scp $user@$server:$dir/$file ./

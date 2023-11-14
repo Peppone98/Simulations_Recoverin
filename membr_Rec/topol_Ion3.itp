@@ -463,7 +463,7 @@ Ion3                3
    219        CLA   8930    CLA    CLA    219         -1      35.45   ; qtot 54
 
 ; Include Position restraint file
-#ifdef POSRES
+#ifdef IPOSRES
 #include "new_posre_Ion3.itp"
 #endif
 

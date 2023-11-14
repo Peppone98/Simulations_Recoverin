@@ -29,7 +29,7 @@ Ion2                3
      2        CAL    302    CAL    CAL      2          2      40.08   ; qtot 4
 
 ; Include Position restraint file
-#ifdef POSRES
+#ifdef IPOSRES
 #include "new_posre_Ion2.itp"
 #endif
 

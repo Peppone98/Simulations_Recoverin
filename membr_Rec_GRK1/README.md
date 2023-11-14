@@ -63,24 +63,17 @@ gmx grompp -f mdp/nvt_1.mdp -c em.gro -r em.gro -p topol.top -o nvt_1.tpr
 ```
 Remember to include the important line 
 ```
-define = -DPOSRES  -DPOSRES_PROT=1000 -DPOSRES_IONS=1000 -DPOSRES_SOL=1000 -DPOSRES_MEMBR=1000
+define = -DPOSRES  -DPOSRES_PROT=1000 
 ```
 in the `.mdp` file (why these start with `-D` is because it mimics the command line argument for the C preprocessor).
 
-I think that 200 ps for each value of the restraints will be enough for the equilibration. 
+# Equilibration runs
+1.  200 ps of NVT with 1000 kJ/mol as restraint on the heavy atoms of the protein 
+2. 400 ps of NPT with 1000 kJ/mol
+3. 400 ps of NPT with 500 kJ/mol
 
+I think that 1 ns of equilibration could be enough. 
 
-# Equilibration issues 
-It looks like we need an extra equiliibration because the NPT equilibration crashes. There are two possible solutions:
-1. Do another NVT equilibration (around 500 ps) with the same restraints.
-2. Decrease the time-step.
-
-```
-gmx grompp -f mdp/nvt_2.mdp -c nvt_1.gro -r nvt_1.gro -p topol.top -o nvt_2.tpr
-```
-
-
-## NPT equilibration
 
 
 ## MD production run
