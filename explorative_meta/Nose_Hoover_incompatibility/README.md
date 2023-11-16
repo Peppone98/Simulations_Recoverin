@@ -1,8 +1,14 @@
 
-# Collection of `.tpr` files for Well-Tempered (WT) Metadynamics (Mdyn)
+# Problem regarding the settings used by Ester
 
-Here we collect all the `.tpr` for each of the four simulations, with and without the membrane. We use the same parameters, barostats and thermostats as Ester used. In this way, we will discover the best method between metadynamics and umbrella sampling. 
+Ester used the Nosé-Hoover chains within the production run. This requires the use of the velocity Verlet (`md-vv`) in gromacs. The problem is that `md-vv` activates the new gromacs modular simular, which is not yest compatible with plumed. The exception encountered is the following:
 
+```
+PLUMED is not yet compatible with GROMACS new modular simulator
+```
+I reported this error to Prof. Lattanzi, which told to continue with the current version of plumed.
+
+Here I just report some observations about the second order coupling algorithms such as the NH chains.
 
 
 # Observations on the second order coupling algorithms 
@@ -23,27 +29,3 @@ In general, the lower the `tau` value, the faster the coupled parameter (tempera
 As a rule of thumb, `tau-t` should be at least 20 times larger than `nsttcouple*dt=0.002`. For velocity Verlet integrators `nsttcouple` is set to 1.
 
 We fix `tau-t` to 0.5 ps and `tau-p` equal to 2.0 ps. 
-
-
-# Systems without membrane
-We take the two equilibrated structures `.gro` and we use the same `.mdp` file for generating the `.tpr`.
-```
-gmx grompp -f md.mdp -c nmRec.gro -p topol.top -o nmRec.tpr
-```
-```
-gmx grompp -f md.mdp -c nmRec_GRK1.gro -p topol.top -o nmRec_GRK1.tpr
-```
-
-# System with membrane
-
-In most simulations of membranes the pressure coupling is limited to the z component, thus keeping fixed the x-y shape of the system.
-
-
-# Next step in the procedure
-
-We send these `.tpr` files on the cluster with the `.dat`, `.pdb` and `.pbs` files. A convenient strategy is to directly send the folder (see `WTMdyn` folder). 
-
-# Possible error
-Plumed is not yet compatible with GROMACS new modular simulator.
-
-GROMACS will automatically use the modular simulator for the velocity verlet integrator (integrator = `md-vv`). 

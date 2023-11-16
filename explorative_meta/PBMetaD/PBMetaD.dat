@@ -18,16 +18,13 @@ pbmetad: PBMETAD ...
    PACE=500 
    HEIGHT=1.2 
    BIASFACTOR=10  
-   SIGMA=0.007 
+   SIGMA=0.007,0.002 
 
    # Double HILLS file
    FILE=HILLS_d1,HILLS_coord
 
    # Use a "large" grid
-   GRID_MIN=0 
-   GRID_MAX=2.2
-
-   # Recover the c(t) for reweighting
-   CALC_RCT
+   GRID_MIN=0,0 
+   GRID_MAX=2.2,1
 ...
-PRINT ARG=d1,coord,pbmetad.bias,pbmetad.rbias,pbmetad.rct FILE=COLVAR STRIDE=100
+PRINT ARG=d1,coord,pbmetad.bias FILE=COLVAR STRIDE=100
