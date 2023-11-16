@@ -28,6 +28,8 @@ explorative_meta/meta_nmRec_2/COLVAR
 wt_mdyn/nmRec_WT/COLVAR
 explorative_meta/meta_nmRec_2/COLVAR
 wt_mdyn/nmRec/FES
-wt_mdyn/nmRec_mw/FES
+wt_mdyn/Walk_MPI/nmRec_mw/FES
+wt_mdyn/Walk_MPI/nmRec_mw/data
 wt_mdyn/nmRec_GRK1/FES
-wt_mdyn/nmRec_GRK1_mw/FES
+wt_mdyn/Walk_MPI/nmRec_GRK1_mw/FES
+wt_mdyn/Walk_MPI/nmRec_GRK1_mw/data

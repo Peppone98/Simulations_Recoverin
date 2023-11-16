@@ -1,0 +1,52 @@
+;
+;	File 'topol.top' was generated
+;	By user: giuseppegambini (501)
+;	On host: MacBook-Air-di-Giuseppe.local
+;	At date: Tue Oct 24 20:39:57 2023
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	            :-) GROMACS - gmx pdb2gmx, 2021.4-giuseppegambini (-:
+;	
+;	Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+;	Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+;	Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/nmRec_Ca_GRK1
+;	Command line:
+;	  gmx pdb2gmx -f nmRec_GRK1.pdb -o nmRec_ions_solv_GRK1.gro -ter yes
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./charmm36-feb2021.ff/forcefield.itp"
+
+; Include chain topologies
+#include "topol_Protein.itp"
+#include "topol_Ion2.itp"
+#include "topol_Other3.itp"
+#include "topol_Protein_chain_G.itp"
+
+; Include water topology
+#include "./charmm36-feb2021.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./charmm36-feb2021.ff/ions.itp"
+
+[ system ]
+; Name
+Protein
+
+[ molecules ]
+; Compound        #mols
+Protein             1
+Ion2                1
+Other3              1
+Protein_chain_G     1
+SOL             18560

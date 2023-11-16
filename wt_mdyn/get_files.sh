@@ -9,7 +9,6 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/explorative_meta/meta_nmRec_2
-file1=COLVAR
-file2=HILLS
+file1=
 
-scp $user@$server:$dir/\{$file1 $file2\} ./
+scp $user@$server:$dir\$file1 $file2\} ./
