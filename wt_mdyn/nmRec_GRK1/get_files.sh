@@ -9,7 +9,7 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/nmRec_GRK1
-file=new_md_meta.tpr
+file=COLVAR
 
-#scp $user@$server:$dir/$file1 ./
-scp $file $user@$server:$dir
+scp $user@$server:$dir/$file ./
+#scp $file $user@$server:$dir

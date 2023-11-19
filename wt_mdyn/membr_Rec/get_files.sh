@@ -10,11 +10,11 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/membr_Rec
-file=meta.dat
+file=traj_prot.xtc
 
 
 # Copy on cluster
-scp $file $user@$server:$dir
+#scp $file $user@$server:$dir
 
 # Copy from cluster
-#scp $user@$server:$dir/$file ./
+scp $user@$server:$dir/$file ./

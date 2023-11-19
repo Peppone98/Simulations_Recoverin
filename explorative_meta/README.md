@@ -2,6 +2,11 @@
 All the trial simulations in this folder are performed with the non-mirystoylated Recoverin (`nmRec`) without GRK1 and without the membrane. 
 
 # Folder organization 
+
+I put a plumed input `.dat` file (usually called `meta.dat`) in each folder together with a README. 
+In each folder I reported a `.ipynb` notebook with a very short analysis of the small amount of ns I collected.  
+
+
 - The folder `meta_nmRec_1` contains the first metadynamics simulation with a very high rate of deposition (`PACE=100`). The grid $[0, 0.4]$ in this case was chosen too small for our purposes.
 - In `meta_nmRec_2` I changed the deposition rate to `PACE=1000` and made the `GRID` similar to the one chosen by Ester, namely $[0, 1.6]$. In this case I also modified the height of the Gaussian to 1 kJ/mol. Here I also introduced a wall at 1.3 nm to explore only the interesting region.  
 

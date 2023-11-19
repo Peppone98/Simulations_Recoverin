@@ -26,6 +26,7 @@ alter (atoms),chain="GRK1"
 ```
 we save the `.pdb` file with `Export Molecule` and `Retain Atom id`. We can then proceed with `pdb2gmx`. 
 
+
 ```
 gmx pdb2gmx -f nmRec_GRK1.pdb -o nmRec_ions_solv_GRK1.gro -ter yes
 ```

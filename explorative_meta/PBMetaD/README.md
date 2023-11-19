@@ -10,7 +10,7 @@ $$V(s_1, t)...V(s_N, t)$$
 
 where
 
-$$V(s_i, t)=\sum_{k\tau<t}W_i(k\tau)\exp{\left\{-\frac{[s_i(t)-s_i(k\tau)]^2}{2\sigma_i^2}\right\}}$$
+$$V(s_i, t)=\sum_{k\tau<t}W_i(k\tau)\exp{\left(-\frac{[s_i(t)-s_i(k\tau)]^2}{2\sigma_i^2}\right)}$$
 
 To ensure the convergence of each mono-dimensional bias at each deposition rate, we introduce the so-called conditional term: 
 

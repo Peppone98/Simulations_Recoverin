@@ -7,7 +7,7 @@ IMPORTANT: from my point of view, the implementation of this variant seems to be
 
 In order to activate this adaptive metadynamics, you have to specify `FREQUENCY_ADAPTIVE=TRUE`.
 
-$$\tau_{\text{dep}}(t)=\text{min}\left\{\tau_0 \text{max}\left( \frac{\alpha(t)}{\theta}, 1 \right), \tau_c\right\}$$
+$$\tau_{\text{dep}}(t)=\text{min}\left\[\tau_0 \text{max}\left( \frac{\alpha(t)}{\theta}, 1 \right), \tau_c\right\]$$
 
 - $\tau_0$ (typical frequency of deposition in MetaD): it is set by the `PACE` varible.
 - $\tau_c$ (tyical frequency in InMetaD) is set by `FA_MAX_PACE`. 

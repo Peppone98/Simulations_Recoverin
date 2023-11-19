@@ -6,6 +6,7 @@
 COLVAR.*
 HILLS_*
 HILL*
+wt_mdyn/INT_VS_TIME_package
 explorative_meta/meta_nmRec_2/FES
 explorative_meta/meta_nmRec_1/FES
 explorative_meta/Multi_Walkers/data/COLVAR.*
