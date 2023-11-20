@@ -8,8 +8,10 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/explorative_meta/meta_nmRec_2
-file1=new_md_meta.tpr
+dir=/home/giuseppe.gambini/simulations/mdyn/nmRec
+file1=HILLS
+file2=COLVAR
 
-scp $file1 $user@$server:$dir
-#scp $user@$server:$dir/$file2 ./
+#scp $file1 $user@$server:$dir
+scp $user@$server:$dir/$file1 ./
+scp $user@$server:$dir/$file2 ./

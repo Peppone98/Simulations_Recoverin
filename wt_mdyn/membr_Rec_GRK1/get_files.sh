@@ -9,7 +9,9 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/membr_Rec_GRK1
-file=traj_comp.xtc
+file1=HILLS
+file2=COLVAR
 
 #scp $file1 $file2 $file3 $user@$server:$dir
-scp $user@$server:$dir/$file ./
+scp $user@$server:$dir/$file1 ./
+scp $user@$server:$dir/$file2 ./
