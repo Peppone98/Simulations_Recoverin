@@ -6,9 +6,25 @@ We have 217 protein residues: 201 are from the Recovering and the remaining 16 b
 ```
 gmx make_ndx -f md.gro -o index.ndx
 ```
-Then I select `1 | 13` and generate the index `Protein_CAL`. 
+one can also proceed on the cluster and do 
+```
+gmx_mpi make_ndx -f reference.pdb -o index.ndx
+```
+Then I select `1 | 13` and generate the index `Protein_CAL`. We must also define the `GRK1` (or also the recoverine). For the `GRK1`, we prompt `a 3376-3609`. In this way, we can apply the command 
+```
+gmx_mpi trjconv -s md_meta.tpr -f traj_comp.xtc -o prot_CAL.xtc -pbc mol -ur compact -center -n index.ndx
+```
+and then select `GRK1` for centering and `Protein_CAL` for output. 
 
-The option `-pbc` sets the type of periodic boundary condition treatment. The specification `nojump` checks if atoms jump across the box and then puts them back. This has the effect that all molecules will remain whole (provided they were whole in the initial conformation). Note that this ensures a continuous trajectory but molecules may diffuse out of the box. The option `-center` centers the system in the box. 
+## Brief explanation of the options
+- The option `-pbc` sets the type of periodic boundary condition treatment. 
+- The specification `nojump` checks if atoms jump across the box and then puts them back. This has the effect that all molecules will remain whole (provided they were whole in the initial conformation). Note that this ensures a continuous trajectory but molecules may diffuse out of the box. That is why we avoid it.
+- Option `-center` centers the system in the box.
+- Option -ur sets the unit cell representation. 
+- The specification `compact` puts all atoms at the closest distance from the center of the box. That is what we need, otherwise the Rec and the GRK1 would seem far apart on two sides of the box.
+
+
+# Another possible procedure with further alignment
 ```
 gmx trjconv -s new_md_meta.tpr -f traj_comp.xtc -o traj_center.xtc -pbc nojump -center
 ```

@@ -23,4 +23,4 @@ source /home/giuseppe.gambini/usr/src/gmx_plumed.sh
 
 export OMP_NUM_THREADS=1
   
-/apps/openmpi-3.0.0/bin/mpirun -np 16 /home/giuseppe.gambini/usr/installations/gromacs/bin/gmx_mpi mdrun -s md_meta.tpr -plumed meta_MW.dat -multidir WALKER0 WALKER1 WALKER2 WALKER4
+/apps/openmpi-3.0.0/bin/mpirun -np 16 /home/giuseppe.gambini/usr/installations/gromacs/bin/gmx_mpi mdrun -s md_meta.tpr -plumed meta_MW.dat -multidir WALKER0 WALKER1 WALKER2 WALKER3
