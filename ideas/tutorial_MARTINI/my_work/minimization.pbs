@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=1GB
+#PBS -l walltime=00:30:00
+#PBS -q short_cpuQ
+#PBS -N CG_Min
+#PBS -o min_out
+#PBS -e min_err
+
+module load gromacs-2021.4
+
+cd $PBS_O_WORKDIR
+
+source /apps/gromacs-2021.4/bin/GMXRC
+
+mpirun -np 4 gmx_mpi mdrun -v -deffnm minimization-vac

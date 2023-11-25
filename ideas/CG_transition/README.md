@@ -11,7 +11,9 @@ In one-bead (and even two beads) CG models for proteins, the two conformational 
 
 This one-bead choice allows uniquely representing the secondary structure by the internal variables $\alpha, \theta$. These are, respectively,the dihedral and the angle between consecutive $\text{C}\alpha$. 
 
+
 ![Alt text](CG_model.png)
+
 
 There exists an analytical correspondence of the all-atom internal backbone coordinates $(\phi, \psi)$ to the CG internal backbone coordinates $(\alpha, \theta)$ that allows one to explicitly map the Ramachandran plot onto a new $(\alpha, \theta)$ conformational density plot. 
 
