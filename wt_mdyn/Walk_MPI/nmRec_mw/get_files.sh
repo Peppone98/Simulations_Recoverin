@@ -9,8 +9,8 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/explorative_meta/
-file1=Walkers_MPI/data
+dir=/home/giuseppe.gambini/simulations/mdyn/Walk_MPI/nmRec_mw
+file1=data
 file2=HILLS_shared
 
 scp -r $user@$server:$dir/$file1 ./

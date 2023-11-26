@@ -9,8 +9,8 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/mdyn
-file1=nmRec_GRK1_WTMW/data
+dir=/home/giuseppe.gambini/simulations/mdyn/Walk_MPI/nmRec_GRK1_mw
+file1=data
 file2=HILLS_shared
 
 scp -r $user@$server:$dir/$file1 ./
