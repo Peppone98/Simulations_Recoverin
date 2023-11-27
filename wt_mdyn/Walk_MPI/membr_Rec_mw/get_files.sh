@@ -9,12 +9,14 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/mdyn/membr_Rec_mw
-file=meta_MW.pbs
+dir=/home/giuseppe.gambini/simulations/mdyn/Walk_MPI/membr_Rec_mw
+file1=HILLS_shared
+file2=data
 
 
 # Copy on cluster
-scp $file $user@$server:$dir
+#scp $file $user@$server:$dir
 
 # Copy from cluster
-#scp $user@$server:$dir/$file ./
+scp $user@$server:$dir/$file1 ./
+scp -r $user@$server:$dir/$file2 ./

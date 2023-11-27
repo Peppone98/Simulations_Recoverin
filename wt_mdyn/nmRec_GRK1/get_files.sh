@@ -9,9 +9,9 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/nmRec_GRK1
-file1=prot_CAL.xtc
-#file2=COLVAR
+file1=HILLS
+file2=COLVAR
 
 scp $user@$server:$dir/$file1 ./
-#scp $user@$server:$dir/$file2 ./
+scp $user@$server:$dir/$file2 ./
 #scp $file $user@$server:$dir
