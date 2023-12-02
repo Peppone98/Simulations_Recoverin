@@ -10,8 +10,8 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/membr_Rec
-file1=HILLS
-file2=COLVAR
+file1=ref_nowat.gro
+#file2=traj_nowat.xtc
 
 
 # Copy on cluster
@@ -19,4 +19,4 @@ file2=COLVAR
 
 # Copy from cluster
 scp $user@$server:$dir/$file1 ./
-scp $user@$server:$dir/$file2 ./
+#scp $user@$server:$dir/$file2 ./

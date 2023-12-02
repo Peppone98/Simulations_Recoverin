@@ -9,10 +9,10 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/mdyn/Walk_MPI/nmRec_mw
-file1=data
-file2=HILLS_shared
+dir=/home/giuseppe.gambini/simulations/mdyn/Walk_MPI/nmRec_mw/WALKER5
+file1=traj_nowat.xtc
+file2=ref_nowat.gro
 
-scp -r $user@$server:$dir/$file1 ./
+scp $user@$server:$dir/$file1 ./
 scp $user@$server:$dir/$file2 ./
 
