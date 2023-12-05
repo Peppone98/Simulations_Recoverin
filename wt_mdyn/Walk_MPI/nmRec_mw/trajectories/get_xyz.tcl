@@ -1,6 +1,6 @@
 
 # Load your trajectory and topology
-mol new /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/traj_nowat_0.xtc type xtc first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol new /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/pbc_nowat_0.xtc type xtc first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
 mol addfile /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/ref_nowat.gro type gro waitfor all
 
 # Specify the atom selection 

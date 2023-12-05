@@ -1,20 +1,22 @@
 
 # Load your trajectory and topology
-mol new /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/traj_nowat_0.xtc type xtc first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol new /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/traj_nowat_nojump_notrans_CAL.xtc type xtc first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
 mol addfile /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Walk_MPI/nmRec_mw/trajectories/ref_nowat.gro type gro waitfor all
 
-# Specify the atom selection 
-set sel [atomselect top "resid 301"]
 
 # Get the number of frames in the trajectory
 set numFrames [molinfo top get numframes]
+
+
+# Specify the atom selection 
+set sel [atomselect top "resid 301"]
 
 # Loop over frames and create a representation for each frame
 for {set frame 0} {$frame < $numFrames} {incr frame} {
     $sel frame $frame
 
     # Get the position of the selected atom
-    set position [$sel get {x y z}]
+    set position [lindex [$sel get {x y z}] 0]
 
     # Create a representation for the atom at its position
     draw color red
