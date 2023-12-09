@@ -8,7 +8,7 @@
 user=giuseppe.gambini
 server=hpc2.unitn.it
 
-dir=/home/giuseppe.gambini/simulations/mdyn/Funnel/nmRec_2
+dir=/home/giuseppe.gambini/simulations/mdyn/Funnel/nmRec_3
 file=WALKER*
 
 #scp -r $user@$server:$dir/$file1 ./

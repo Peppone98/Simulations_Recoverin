@@ -1,4 +1,5 @@
 FES/
+wt_mdyn/Funnel/tutorial_FM
 *.tpr
 *.xtc
 *.ff
@@ -7,6 +8,8 @@ FES/
 COLVAR.*
 HILLS_*
 HILL*
+fes*.dat
+fes_*.dat
 ideas/tutorial_MARTINI/tutorial_2
 wt_mdyn/INT_VS_TIME_package
 explorative_meta/meta_nmRec_2/FES

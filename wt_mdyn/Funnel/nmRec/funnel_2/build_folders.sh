@@ -14,8 +14,7 @@ done
 for (( i=0; i<$len; i++ ))
 do
   cp funnel.dat WALKER${n_walk[i]}/
-  cp md_meta.tpr WALKER${n_walk[i]}/
+  cp all_frames.tpr WALKER${n_walk[i]}/
   cp reference.pdb WALKER${n_walk[i]}/
-  cp ref_CA.pdb WALKER${n_walk[i]}/
   cp prot.pdb WALKER${n_walk[i]}/
 done
