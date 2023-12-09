@@ -1,0 +1,45 @@
+MOLINFO STRUCTURE=reference.pdb 
+
+# Compute the distance with the CM of the protein and the six coordinant oxygens
+cm_prot: COM ATOMS=1-3261
+cm_O: COM ATOMS=1175,1196,1222,1245,1330,1331
+cm_Ca: COM ATOMS=3262
+d1: DISTANCE ATOMS=cm_prot,cm_Ca
+d2: DISTANCE ATOMS=cm_O,cm_Ca
+
+# dump a file containing charges and masses (useful for post-processing)
+DUMPATOMS ATOMS=cm_prot,cm_Ca,cm_O FILE=coms.xyz STRIDE=100 
+DUMPMASSCHARGE FILE=mcfile
+
+# save the trajectory of protein and calcium alone
+WHOLEMOLECULES ENTITY0=1-3262
+DUMPATOMS FILE=dump.xtc ATOMS=1-3262
+
+# Define the multiple walkers
+metad: METAD ... 
+   ARG=d1
+   PACE=500   
+   SIGMA=0.006 
+
+   # These parameters change in the four simulations
+   HEIGHT=1.5 
+   BIASFACTOR=8
+
+   # Shared hills file
+   FILE=HILLS_shared
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=6.0
+
+   # call the MPI walkers 
+   WALKERS_MPI
+
+   # I have 4 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+PRINT ARG=d1,d2,metad.bias,metad.rbias,metad.rct FILE=COLVAR STRIDE=500

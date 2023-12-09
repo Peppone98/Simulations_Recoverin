@@ -16,6 +16,11 @@ were simulated for 10 ns to recover the typical standard deviation of the distan
 - `membr_nmRec_GRK1`
 Each folder contains the files for the setup of the systems starting from the given structure files labeled with the suffix `_start.gro`. 
 
+
+![Alt text](nglview.png)
+*The non-myristoylated protein with the calcium ions in EF2 and EF3.*
+
+
 The folder `wt_mdyn` contains four well-tempered metadynamics simulations with a single walker and other four multiple walkers simulations (reported in `Walk_MPI`). 
 
 The set of benchmarks for both CPUs and GPUs is in `benchmarks`.
