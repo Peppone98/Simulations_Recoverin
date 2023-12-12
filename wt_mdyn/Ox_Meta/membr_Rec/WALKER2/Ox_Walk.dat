@@ -1,0 +1,47 @@
+MOLINFO STRUCTURE=reference.pdb 
+
+# Compute the distance with the CM of the protein and the six coordinant oxygens
+
+# Select all the protein atoms
+cm_prot: COM ATOMS=1-3302
+cm_O: COM ATOMS=1216,1237,1263,1286,1371,1372
+cm_Ca: COM ATOMS=3303
+d1: DISTANCE ATOMS=cm_prot,cm_Ca
+d2: DISTANCE ATOMS=cm_O,cm_Ca
+
+# dump a file containing charges and masses (useful for post-processing)
+DUMPATOMS ATOMS=cm_prot,cm_Ca,cm_O FILE=coms.xyz STRIDE=500 
+DUMPMASSCHARGE FILE=mcfile
+
+
+# Define the multiple walkers
+metad: METAD ... 
+   ARG=d2
+   PACE=500  
+
+   # From 10 ns of unbiased simulation (in nm) 
+   SIGMA=0.007 
+
+   # These parameters change in the four simulations
+   HEIGHT=1.8 
+   BIASFACTOR=10
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=6.0
+
+   # Define information on the walkers
+   WALKERS_N=4
+   WALKERS_ID=2
+
+   # Each simulation reads the hills files every 100 steps 
+   WALKERS_RSTRIDE=100
+   
+   # I have 4 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+PRINT ARG=d1,d2,metad.bias,metad.rbias,metad.rct FILE=COLVAR STRIDE=500

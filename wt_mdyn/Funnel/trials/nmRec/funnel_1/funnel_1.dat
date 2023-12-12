@@ -1,0 +1,76 @@
+# Remember to create empty HILLS and COLVAR files in case you are doing the first run with RESTART option.
+# <fill> = necessary an input.
+# <?> = necessary a file.
+# RESTART
+
+#WHOLEMOLECULES ENTITY0=<fill>
+
+MOLINFO STRUCTURE=reference.pdb 
+
+
+lig: COM ATOMS=3262
+
+fps: FUNNEL_PS ...
+   LIGAND=lig
+   REFERENCE=reference.pdb
+   ANCHOR=1330 
+   POINTS=3.14,4.261,4.225,2.676,4.326,3.77
+funnel: FUNNEL ...
+   ARG=fps.lp,fps.ld 
+   ZCC=2.0
+   ALPHA=0.35 
+   RCYL=0.1 
+   MINS=0.2 
+   MAXS=0.6 
+   KAPPA=<fill> 
+   NBINS=500 
+   NBINZ=500 
+   FILE=BIAS 
+
+
+# Define the group of atoms 
+c1: COM ATOMS=1175,1196,1222,1245,1330,1331
+d1: DISTANCE ATOMS=c1,lig
+
+
+# Define the multiple walkers metadynamics
+metad: METAD ... 
+   ARG=d1
+   PACE=400 
+   HEIGHT=1.2 
+   BIASFACTOR=10  
+   SIGMA=0.007 
+
+   # Shared hills file
+   FILE=HILLS_shared
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=4.0
+
+   # call the MPI walkers 
+   WALKERS_MPI
+
+   # I have 4 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+# Restraint the position of the ligand inside the funnel
+lwall: LOWER_WALLS ...
+   ARG=fps.lp 
+   AT=0.2 
+   KAPPA=1000 
+   EXP=2 
+   OFFSET=0 
+
+uwall: UPPER_WALLS ...
+   ARG=fps.lp 
+   AT=3.5 
+   KAPPA=1000 
+   EXP=2 
+   OFFSET=0 
+
+PRINT ARG=d1,metad.bias,metad.rbias,metad.rct FILE=COLVAR STRIDE=100

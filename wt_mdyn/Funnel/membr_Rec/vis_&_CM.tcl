@@ -52,7 +52,7 @@ pbc box
 # Display the visualization
 display resetview
 
-#render TachyonInternal /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/nmRec/funnel_head.png
+#render TachyonInternal /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/membr_Rec/funnel.png
 
 # Load the tool for plotting the funnel
 source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/tooltip.tcl

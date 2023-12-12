@@ -45,8 +45,6 @@ Protein in water
 ; Compound        #mols
 Protein_chain_A     1
 Ion_chain_B         1
-SOL         31544
-K                86
-CL               84
-MG               1
-CL               2
+SOL         31535
+K                92
+CL               90

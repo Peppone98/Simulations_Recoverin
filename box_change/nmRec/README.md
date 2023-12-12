@@ -23,16 +23,29 @@ gmx solvate -cp nmRec_processed.gro -cs spc216.gro -o nmRec_solv.gro -p topol.to
 
 ## Add the ions
 ```
-gmx grompp -f mdp/ions.mdp -c nmRec_solv.gro -p topol.top -o ions_MgCl2.tpr
+gmx grompp -f mdp/ions.mdp -c nmRec_solv.gro -p topol.top -o ions.tpr
 ```
 Based on our previous attempt with CHARMM-GUI, we do
 ```
-gmx genion -s ions.tpr -o nmRec_solv_MgCl2.gro -p topol.top -pname MG -nname CL -np 1 -nn 2
+gmx genion -s ions.tpr -o nmRec_solv_ions.gro -p topol.top -pname K -nname CL -conc 0.15 -neutral
 ```
-Now, the part in which we add potassium and clorine:
+
+## Energy minimization
 ```
-gmx grompp -f mdp/ions.mdp -c nmRec_solv_MgCl2.gro -p topol.top -o ions_KCl.tpr
+gmx grompp -f mdp/em.mdp -c nmRec_solv_ions.gro -p topol.top -o em.tpr
 ```
+
+## NVT equilibration
 ```
-gmx genion -s ions_KCl.tpr -o nmRec_solv_ions.gro -p topol.top -pname K -nname CL -np 86 -nn 84
+gmx grompp -f mdp/nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+```
+
+## NPT equilibration
+```
+gmx grompp -f mdp/npt.mdp -c nvt.gro -r nvt.gro -p topol.top -o npt.tpr
+```
+
+## 10 ns of unrestrained dynamics 
+```
+gmx grompp -f mdp/md.mdp -c npt.gro -p topol.top -o md.tpr
 ```
