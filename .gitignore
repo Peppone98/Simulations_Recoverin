@@ -1,5 +1,7 @@
 FES/
 wt_mdyn/Funnel/tutorial_FM
+*.ps
+*#*
 *.tpr
 *.xtc
 *.ff

@@ -1,22 +1,78 @@
-# Remember to create empty HILLS and COLVAR files in case you are doing the first run with RESTART option.
-# <fill> = necessary an input.
-# <?> = necessary a file.
-RESTART
-
-WHOLEMOLECULES ENTITY0=<fill>
+MOLINFO STRUCTURE=ref.pdb
 
 lig: COM ATOMS=3262
 
-fps: FUNNEL_PS LIGAND=lig REFERENCE=<?> ANCHOR=<fill> POINTS=7.95,5.339,6.461,8.259,5.412,5.454
+fps: FUNNEL_PS ...
+   LIGAND=lig
+   REFERENCE=prot.pdb 
+   ANCHOR=1196
+   POINTS=7.95,5.339,6.461,8.259,5.412,5.454
+...
 
-FUNNEL ARG=fps.lp,fps.ld ZCC=2.5 ALPHA=0.5 RCYL=0.1 MINS=0.0 MAXS=6.0 KAPPA=<fill> NBINS=500 NBINZ=500 FILE=BIAS LABEL=funnel
 
-# remove BIASFACTOR if you want to perform standard metadynamics
-METAD ARG=<fill> SIGMA=<fill> HEIGHT=<fill> PACE=<fill> TEMP=300 BIASFACTOR=<fill> GRID_MIN=<fill> GRID_MAX=<fill> GRID_BIN=<fill> CALC_RCT RCT_USTRIDE=<fill> LABEL=metad
+funnel: FUNNEL ...
+   ARG=fps.lp,fps.ld 
+   ZCC=2.5
+   ALPHA=0.5 
+   RCYL=0.1 
+   MINS=0.0 
+   MAXS=6.0 
+   KAPPA=30000  
+   NBINS=500 
+   NBINZ=500
+   FILE=BIAS 
+...
 
-LOWER_WALLS ARG=fps.lp AT=0.1 KAPPA=<fill> EXP=2 OFFSET=0 LABEL=lwall
+# Define the group of atoms 
+cm_prot: COM ATOMS=1-3261
+cm_O: COM ATOMS=1175,1196,1222,1245,1330,1331
+d1: DISTANCE ATOMS=cm_prot,lig
+d2: DISTANCE ATOMS=cm_O,lig
 
-UPPER_WALLS ARG=fps.lp AT=5.5 KAPPA=<fill> EXP=2 OFFSET=0 LABEL=uwall
 
-PRINT STRIDE=<fill> ARG=* FILE=COLVAR
+# dump a file containing charges and masses (useful for post-processing)
+DUMPATOMS ATOMS=cm_prot,lig,cm_O FILE=coms.xyz STRIDE=500 
+DUMPMASSCHARGE FILE=mcfile
+
+
+# Define the multiple walkers metadynamics
+metad: METAD ... 
+   ARG=d2
+   PACE=500 
+
+   # These parameters change in the four simulations
+   HEIGHT=1.2 
+   BIASFACTOR=10  
+
+   # From 10 ns of unbiased simulation (in nm)
+   SIGMA=0.007 
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=6.0
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+
+# Restraint the position of the ligand inside the funnel
+lwall: LOWER_WALLS ...
+   ARG=fps.lp 
+   AT=0.1 
+   KAPPA=30000 
+   EXP=2 
+   OFFSET=0
+...
+
+
+uwall: UPPER_WALLS ...
+   ARG=fps.lp 
+   AT=5.5 
+   KAPPA=30000 
+   EXP=2 
+   OFFSET=0
+... 
+
+PRINT STRIDE=500 ARG=* FILE=COLVAR
 
