@@ -1,0 +1,22 @@
+# Remember to create empty HILLS and COLVAR files in case you are doing the first run with RESTART option.
+# <fill> = necessary an input.
+# <?> = necessary a file.
+RESTART
+
+WHOLEMOLECULES ENTITY0=<fill>
+
+lig: COM ATOMS=3262
+
+fps: FUNNEL_PS LIGAND=lig REFERENCE=<?> ANCHOR=<fill> POINTS=8.323,6.277,6.552,9.0446,6.2234,5.4851
+
+FUNNEL ARG=fps.lp,fps.ld ZCC=2.5 ALPHA=0.5 RCYL=0.1 MINS=0.0 MAXS=6.0 KAPPA=<fill> NBINS=500 NBINZ=500 FILE=BIAS LABEL=funnel
+
+# remove BIASFACTOR if you want to perform standard metadynamics
+METAD ARG=<fill> SIGMA=<fill> HEIGHT=<fill> PACE=<fill> TEMP=300 BIASFACTOR=<fill> GRID_MIN=<fill> GRID_MAX=<fill> GRID_BIN=<fill> CALC_RCT RCT_USTRIDE=<fill> LABEL=metad
+
+LOWER_WALLS ARG=fps.lp AT=0.1 KAPPA=<fill> EXP=2 OFFSET=0 LABEL=lwall
+
+UPPER_WALLS ARG=fps.lp AT=5.5 KAPPA=<fill> EXP=2 OFFSET=0 LABEL=uwall
+
+PRINT STRIDE=<fill> ARG=* FILE=COLVAR
+
