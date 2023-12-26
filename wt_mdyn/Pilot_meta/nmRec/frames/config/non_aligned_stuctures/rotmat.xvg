@@ -1,0 +1,33 @@
+# This file was created Mon Dec 25 17:09:30 2023
+# Created by:
+#              :-) GROMACS - gmx rotmat, 2021.4-giuseppegambini (-:
+# 
+# Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+# Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+# Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Pilot_meta/nmRec/frames/config/non_aligned_stuctures
+# Command line:
+#   gmx rotmat -s md_0.gro -f md_2.gro
+# gmx rotmat is part of G R O M A C S:
+#
+# GROningen MAchine for Chemical Simulation
+#
+@    title "Fit matrix"
+@    xaxis  label "Time (ps)"
+@    yaxis  label ""
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "xx"
+@ s1 legend "xy"
+@ s2 legend "xz"
+@ s3 legend "yx"
+@ s4 legend "yy"
+@ s5 legend "yz"
+@ s6 legend "zx"
+@ s7 legend "zy"
+@ s8 legend "zz"
+      0  0.9633 -0.0547  0.2629  0.1801  0.8578 -0.4815 -0.1992  0.5111  0.8361
