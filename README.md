@@ -1,39 +1,28 @@
 
 # Folder organization
 
-We keep the "good" metadynamics runs (in `wt_mdyn`, where `wt` stands for "well-tempered") separated from the non-biased runs (which are reported in `tpr_generation`).
-
-
-Inside `tpr_generation`, the four analyzed systems
+1. `wt_mdyn`:  `wt` stands for "well-tempered". It contains the metadynamics simulations
+2. `tpr_generation`: It contains the procedure for the generation of the `.tpr` files for the four cases 
 - non-myristoylated Recoverin (`nmRec`)
 - non-myristoylated Recoverin in complex with GRK1 (`nmRec_GRK1`)
 - Recoverin in membrane (`membr_Rec`)
 - Recoverin with GRK1 in membrane (`membr_Rec_GRK1`)
-were simulated for 10 ns to recover the typical standard deviation of the distance and obtain a more relaxed structure to use in the metadynamics runs. The process of building up of the `.tpr` files from the `.gro` structures could be painful, so we keep it separated in the four subfolders 
-- `nmRec`
-- `nmRec_GRK1`
-- `membr_nmRec`
-- `membr_nmRec_GRK1`
-Each folder contains the files for the setup of the systems starting from the given structure files labeled with the suffix `_start.gro`. 
+It contains as well 10 ns of unbiased simulations. 
+3. `explorative_meta`: it contains the analysis of metadynamics runs performed with different methodologies reported in the plumed manual (for instance, parallel bias metadynamics, frequency adapted metadynamics and so on).
+4. `benchmarks`: contains the benchmarks on CPU/GPU of both `nmRec` and `membr_Rec`
+5. `ideas`: contains some possible ideas such as the coarse-grained metadynamics and so on. This folder does not present any type of analysis, it's purely speculative
+6. `box_change`: the box size is changed in order to let the ion sample the unbound state without interacting with the nearest periodic image of the protein. Essentially, the steps described in `tpr_generation` are performed again. 
+7. `Coarse_grain`: it contains a first attempt of coarse grain for the nmRec. 
 
 
 ![Alt text](nglview.png)
 *The non-myristoylated protein with the calcium ions in EF2 and EF3.*
 
 
-The folder `wt_mdyn` contains four well-tempered metadynamics simulations with a single walker and other four multiple walkers simulations (reported in `Walk_MPI`). 
+# Observations 
 
-The set of benchmarks for both CPUs and GPUs is in `benchmarks`.
+I think that the multiple walker is the best protocol as it provides a huge speedup. Moreover, the walkers can be differentiated in terms of height and width of the Gaussians and bias factor as well. 
 
-The "trial & errors" session is placed in `explorative_meta`. In this folder we explore different variations of well-tempered metadynamics. 
-
-After a first trials & errors session with plumed, I decided to do a simple well-tempered metadynamics. 
-Reasons: 
-1. Geometrically adapted metadynamics 
-2. Frequency adapted metadynamics 
-3. Parallel bias metadynamics 
-All these variations are implemented in plumed but I didn't see any research article applying these methods to physically relevant systems (only alanine dipeptide was treated). 
-
-On the other hand, I found articles relying on the multiple walkers version of metadynamics. 
+Another protocol, which is explicitly treated in `wt_mdyn` is the funnel metadynamics.  
 
 
