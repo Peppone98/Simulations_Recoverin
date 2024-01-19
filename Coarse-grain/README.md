@@ -47,8 +47,9 @@ You first need to update the topology to reflect the added water (`W        7575
 gmx grompp -f minimization.mdp -c system_solv.gro -p system.top -o ions.tpr
 ```
 ```
-gmx genion -s ions.tpr -o solv_ions.gro -p system.top -pname K -nname CL -conc 0.15 -neutral
+gmx genion -s ions.tpr -o solv_ions.gro -p system.top -pname NA -nname CL -conc 0.15 -neutral
 ```
+The potassium ion is not present in the Martini force field for ions, so I used sodium. Long range electrostatic interactions are absent, and for small ions the first hydration shell is considered an implicit part of the CG ion. 
 
 ## Minimization in solution
 The only difference is that here we do not have the protein in vacuum anymore, but the whole system. 
@@ -59,5 +60,28 @@ gmx grompp -p system.top -c solv_ions.gro -f minimization.mdp -o min_solution.tp
 gmx mdrun -deffnm min_solution -v
 ```
 
+# Equilibration run: NPT
+Most simulations are numerically stable with dt=40 fs. Remember to include the line `define = -DPOSRES` in the `.mdp` file. The Martinize2 script already inserted the restraints on the backbone atoms in `nmRec.itp`. You may also need to use `refcoord_scaling = com`. 
+```
+gmx grompp -p system.top -c min_solution.gro -f equilibration.mdp -o equilibration.tpr -r min_solution.gro
+```
+```
+gmx mdrun -deffnm equilibration -v
+```
+
+# Production run
+```
+gmx grompp -p system.top -c equilibration.gro -f dynamic.mdp -o dynamic.tpr 
+```
+
+# Visualization of the trajectory in VMD
+```
+gmx trjconv -f equilibration.gro -s dynamic.tpr -conect -o equilibration.pdb -pbc whole
+```
+Then, remember to cancel the line containing `ENDMDL` in the pdb file. 
+
+
+## Small note on PME
+Using Particle Mesh Ewald (PME) in a coarse-grained Martini simulation is generally not recommended. PME is a method commonly employed in molecular dynamics simulations to handle long-range electrostatic interactions in systems with detailed atomic representations. However, the Martini force field is specifically designed for coarse-grained simulations, where multiple atoms are represented by a single interaction site or bead. In Martini simulations, electrostatic interactions are usually treated with a simple Coulombic potential that does not require the use of PME. 
 
 

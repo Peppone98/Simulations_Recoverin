@@ -1,0 +1,55 @@
+
+MOLINFO STRUCTURE=ref_5.pdb
+
+lig: COM ATOMS=3262
+
+# Define the group of atoms 
+cm_prot: COM ATOMS=1-3261
+cm_O: COM ATOMS=1175,1196,1222,1245,1330,1331
+d1: DISTANCE ATOMS=cm_O,lig
+d2: DISTANCE ATOMS=cm_prot,lig
+
+# dump a file containing charges and masses (useful for post-processing)
+DUMPATOMS ATOMS=cm_prot,lig,cm_O FILE=coms.xyz STRIDE=500 
+DUMPMASSCHARGE FILE=mcfile
+
+# Define the multiple walkers metadynamics
+metad: METAD ... 
+   ARG=d1
+   PACE=10000 
+
+   # These parameters change in the four simulations
+   HEIGHT=1.0 
+   BIASFACTOR=8  
+
+   # From 10 ns of unbiased simulation (in nm)
+   SIGMA=0.01 
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=7.0
+
+   # Define information on the walkers
+   WALKERS_N=8
+   WALKERS_ID=5
+
+   # Each simulation reads the hills files every 2 ps 
+   WALKERS_RSTRIDE=1000
+   
+   # I have 4 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+
+uwall: UPPER_WALLS ...
+   ARG=d1 
+   AT=6.0 
+   KAPPA=30000 
+   EXP=2 
+   OFFSET=0
+... 
+
+PRINT STRIDE=500 ARG=* FILE=COLVAR

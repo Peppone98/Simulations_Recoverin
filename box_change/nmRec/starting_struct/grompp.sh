@@ -6,7 +6,7 @@ len=${#n_walk[@]}
 
 for (( i=0; i<$len; i++ ))
 do
-    gmx grompp -f ../mdp_struct/md_meta.mdp -c md_gro/md_${n_walk[i]}.gro -r md_gro/md_${n_walk[i]}.gro -p ../topol.top -o md_meta_${n_walk[i]}.tpr
+    gmx grompp -f ../mdp_struct/md_meta.mdp -c npt_gro/npt_${n_walk[i]}.gro -r npt_gro/npt_${n_walk[i]}.gro -p ../topol.top -o tpr/md_${n_walk[i]}.tpr
 done
 
 echo "Grommp action completed"
