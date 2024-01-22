@@ -1,6 +1,9 @@
 
 # Funnel metadynamics 
 
+This folder contains the analysis of a new simulation in which the radius of the cylinder was increased. This should allow an easier sampling of the unbound state of the calcium ion. 
+
+
 This idea comes from a fruitful conversation with Alessio :)
 
 The problem is that the $\text{Ca}^{2+}$ ion does not completely detach from the protein during the simulations. Instead, it interacts with other residues outside the pocket and never leaves the protein. This effect is due to the wall I implemented at 1.3 nm. This prevents $\text{Ca}^{2+}$ from detaching.

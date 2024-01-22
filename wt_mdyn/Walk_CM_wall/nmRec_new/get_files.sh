@@ -7,7 +7,7 @@ user=giuseppe.gambini
 server=hpc2.unitn.it
 
 dir=/home/giuseppe.gambini/simulations/mdyn/Walk_CM_wall/nmRec_new
-file=WALKER
+file=HILLS.
 
-#scp $user@$server:$dir/$file* ./
-scp -r $file* $user@$server:$dir
+scp $user@$server:$dir/$file* ./
+#scp -r $file* $user@$server:$dir

@@ -23,4 +23,4 @@ How does `-membed` work?
 3. Growth phase: the protein size is increased until it reaches again the initial size. 
 
 
-The protein should be placed at the desired position and orientation overlapping the lipid bilayer by using for instance pymol.
+The protein should be placed at the desired position and orientation overlapping the lipid bilayer by using for instance pymol. 
