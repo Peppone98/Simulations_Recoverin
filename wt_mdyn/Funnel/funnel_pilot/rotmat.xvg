@@ -1,0 +1,33 @@
+# This file was created Sat Jan 27 12:33:56 2024
+# Created by:
+#              :-) GROMACS - gmx rotmat, 2021.4-giuseppegambini (-:
+# 
+# Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+# Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+# Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/funnel_pilot
+# Command line:
+#   gmx rotmat -s frames_fit/frame_12580.pdb -f frames_center/frame_12580.pdb
+# gmx rotmat is part of G R O M A C S:
+#
+# Great Red Owns Many ACres of Sand 
+#
+@    title "Fit matrix"
+@    xaxis  label "Time (ps)"
+@    yaxis  label ""
+@TYPE xy
+@ view 0.15, 0.15, 0.75, 0.85
+@ legend on
+@ legend box on
+@ legend loctype view
+@ legend 0.78, 0.8
+@ legend length 2
+@ s0 legend "xx"
+@ s1 legend "xy"
+@ s2 legend "xz"
+@ s3 legend "yx"
+@ s4 legend "yy"
+@ s5 legend "yz"
+@ s6 legend "zx"
+@ s7 legend "zy"
+@ s8 legend "zz"
+  12580  0.2206 -0.6154  0.7567 -0.2389  0.7181  0.6537 -0.9456 -0.3250  0.0114

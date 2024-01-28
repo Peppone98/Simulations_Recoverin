@@ -1,6 +1,6 @@
 
 # Set the reference structure
-set reference_structure "/Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/funnel_pilot/frames_center/frame_12580.pdb"
+set reference_structure "/Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/funnel_pilot/frames_fit/frame_12580.pdb"
 
 # Load the reference structure
 mol new $reference_structure
@@ -21,7 +21,7 @@ mol material Opaque
 mol addrep top
 
 # List of frame files to align
-set frame_files {"/Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/funnel_pilot/frames_fit/frame_12580.pdb" }
+set frame_files {"/Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/funnel_pilot/frames_center/frame_12580.pdb" }
 
 # Loop through each frame and align to the reference structure
 foreach frame_file $frame_files {
@@ -81,9 +81,9 @@ pbc box
 display resetview
 
 # Load the tool for plotting the funnel
-# source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/tooltip.tcl
-# source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/funnel.tcl
-# funnel_tk
+source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/tooltip.tcl
+source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/funnel.tcl
+funnel_tk
 
 
     
