@@ -40,15 +40,26 @@ color Display Background white
 display update
 
 # Plot box
-pbc box
+#pbc box
 
 # Display the visualization
 display resetview
 
-# Load the tool for plotting the funnel
-source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/tooltip.tcl
-source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/funnel.tcl
-funnel_tk
 
+set sel1 [atomselect top "protein"]
+set sel2 [atomselect top "resid 301 and resname CAL"]
 
-    
+# Get the number of frames in the trajectory
+set nf [molinfo top get numframes]
+
+for {set f 0} {$f < $nf} {incr f} {
+    $sel1 frame $f
+    $sel2 frame $f
+    set com1 [measure center $sel1 weight mass]
+
+    set com2 [measure center $sel2 weight mass]
+
+    # Draw positions of CAL
+    draw color yellow
+    draw sphere $com2 radius 0.7
+}

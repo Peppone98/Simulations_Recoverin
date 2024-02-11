@@ -43,15 +43,6 @@ color Display Background white
 # axes location Off
 # axes drawn no
 
-# Update the display to apply the changes
-display update
-
-# Plot box
-pbc box
-
-# Display the visualization
-display resetview
-
 #render TachyonInternal /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/nmRec/funnel_head.png
 
 # COMPUTE THE CM DISTANCE
@@ -63,15 +54,36 @@ set sel2 [atomselect top "resid 301 and resname CAL"]
 set nf [molinfo top get numframes]
 
 # Open the output file for writing
-set outfile [open /Users/giuseppegambini/Desktop/TESI/simulations/tpr_generation/nmRec/dist_out.dat w]
+#set outfile [open /Users/giuseppegambini/Desktop/TESI/simulations/tpr_generation/nmRec/dist_out.dat w]
+
+#for {set f 0} {$f < $nf} {incr f} {
+ #   $sel1 frame $f
+  #  $sel2 frame $f
+   # set com1 [measure center $sel1 weight mass]
+    #set com2 [measure center $sel2 weight mass]
+  #  set distance [veclength [vecsub $com1 $com2]]
+   # puts $outfile $f\t$distance
+#}
+
+#close $outfile
 
 for {set f 0} {$f < $nf} {incr f} {
     $sel1 frame $f
     $sel2 frame $f
     set com1 [measure center $sel1 weight mass]
+
     set com2 [measure center $sel2 weight mass]
-    set distance [veclength [vecsub $com1 $com2]]
-    puts $outfile $f\t$distance
+
+    # Draw positions of CAL
+    draw color yellow
+    draw sphere $com2 radius 0.7
 }
 
-close $outfile
+# Update the display to apply the changes
+display update
+
+# Plot box
+#pbc box
+
+# Display the visualization
+display resetview
