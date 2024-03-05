@@ -15,10 +15,6 @@ It contains as well 10 ns of unbiased simulations.
 7. `Coarse_grain`: it contains a first attempt of coarse grain for the nmRec. 
 
 
-![Alt text](nglview.png)
-*The non-myristoylated protein with the calcium ions in EF2 and EF3.*
-
-
 https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/cd7b8e35-40c2-4247-8461-5d906496f898
 
 
