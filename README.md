@@ -18,6 +18,7 @@ It contains as well 10 ns of unbiased simulations.
 ![Alt text](nglview.png)
 *The non-myristoylated protein with the calcium ions in EF2 and EF3.*
 
+<video src="FE_profile.mp4" width="320" height="240" controls></video>
 
 # Observations 
 
