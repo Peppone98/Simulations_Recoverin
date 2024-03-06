@@ -19,6 +19,9 @@ It contains as well 10 ns of unbiased simulations.
 
 https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/cd7b8e35-40c2-4247-8461-5d906496f898
 
+![smaller_funnel](https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/8682b707-64f4-400e-aba8-b8019a9dfc30)
+*Representation of the funnel restraint*
+
 
 # Observations 
 
