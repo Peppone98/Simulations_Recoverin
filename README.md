@@ -12,7 +12,6 @@ It contains as well 10 ns of unbiased simulations.
 4. `benchmarks`: contains the benchmarks on CPU/GPU of both `nmRec` and `membr_Rec`
 5. `ideas`: contains some possible ideas such as the coarse-grained metadynamics and so on. This folder does not present any type of analysis, it's purely speculative
 6. `box_change`: the box size is changed in order to let the ion sample the unbound state without interacting with the nearest periodic image of the protein. Essentially, the steps described in `tpr_generation` are performed again. 
-7. `Coarse_grain`: it contains a first attempt of coarse grain for the nmRec. 
 
 
 ![funnel_bias_30ns](https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/015c8343-37ff-4e61-a481-d4eec35c04cb)
