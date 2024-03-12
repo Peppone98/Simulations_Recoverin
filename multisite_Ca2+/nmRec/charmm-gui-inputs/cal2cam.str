@@ -1,0 +1,35 @@
+* CAL to CAM conversion
+*
+
+read sequence CAM @ncal
+generate CAM setup warn first NONE last NONE noangle nodihedral
+
+open read unit 10 card name cam_r0.crd
+read coor unit 10 card append
+
+if ncal .gt. 1 then
+    set camcnt  2
+    label coorcopy
+
+        coor duplicate select segid CAM .and. resid 1 end select segid CAM .and. resid @camcnt end
+
+    incr camcnt by 1
+    if camcnt .le. @ncal goto coorcopy
+endif
+
+set camcnt  1
+label coormove
+
+    define cal2repl select resname CAL .and. .not. segid CAM end
+    set calatm = ?selatom
+    coor stat sele bynum @calatm end
+    coor trans xdir ?xave ydir ?yave zdir ?zave sele segid CAM .and. resid @camcnt end
+    delete atom sele bynum @calatm end
+
+incr camcnt by 1
+if camcnt .le. @ncal goto coormove
+
+define junk sele segid IONS end
+if ?nsel .gt. 0 join IONS CAM renumber
+if ?nsel .eq. 0 rename segid IONS sele segid CAM end
+
