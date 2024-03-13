@@ -1,0 +1,108 @@
+[ GLM ]
+  [ atoms ]
+	    N   NH1   -0.470  0
+	   HN     H    0.310  1
+	   CA   CT2   -0.020  2
+	  HA1   HB2    0.090  3
+	  HA2   HB2    0.090  4
+	    C     C    0.510  5
+	    O     O   -0.510  6
+	   C1     C    0.550  7
+	   O1     O   -0.600  8
+	   C2  CTL2   -0.070  9
+	  H21  HAL2    0.060 10
+	  H22  HAL2    0.060 11
+	   C3  CTL2   -0.180 12
+	  H31  HAL2    0.090 13
+	  H32  HAL2    0.090 14
+	   C4  CTL2   -0.180 15
+	  H41  HAL2    0.090 16
+	  H42  HAL2    0.090 17
+	   C5  CTL2   -0.180 18
+	  H51  HAL2    0.090 19
+	  H52  HAL2    0.090 20
+	   C6  CTL2   -0.180 21
+	  H61  HAL2    0.090 22
+	  H62  HAL2    0.090 23
+	   C7  CTL2   -0.180 24
+	  H71  HAL2    0.090 25
+	  H72  HAL2    0.090 26
+	   C8  CTL2   -0.180 27
+	  H81  HAL2    0.090 28
+	  H82  HAL2    0.090 29
+	   C9  CTL2   -0.180 30
+	  H91  HAL2    0.090 31
+	  H92  HAL2    0.090 32
+	  C10  CTL2   -0.180 33
+	 H101  HAL2    0.090 34
+	 H102  HAL2    0.090 35
+	  C11  CTL2   -0.180 36
+	 H111  HAL2    0.090 37
+	 H112  HAL2    0.090 38
+	  C12  CTL2   -0.180 39
+	 H121  HAL2    0.090 40
+	 H122  HAL2    0.090 41
+	  C13  CTL2   -0.180 42
+	 H131  HAL2    0.090 43
+	 H132  HAL2    0.090 44
+	  C14  CTL3   -0.270 45
+	 H141  HAL3    0.090 46
+	 H142  HAL3    0.090 47
+	 H143  HAL3    0.090 48
+  [ bonds ]
+	    N    HN
+	    N    CA
+	    C    CA
+	    C    +N
+	   CA   HA1
+	   CA   HA2
+	    N    C1
+	   C1    C2
+	   C2   H21
+	   C2   H22
+	   C2    C3
+	   C3   H31
+	   C3   H32
+	   C3    C4
+	   C4   H41
+	   C4   H42
+	   C4    C5
+	   C5   H51
+	   C5   H52
+	   C5    C6
+	   C6   H61
+	   C6   H62
+	   C6    C7
+	   C7   H71
+	   C7   H72
+	   C7    C8
+	   C8   H81
+	   C8   H82
+	   C8    C9
+	   C9   H91
+	   C9   H92
+	   C9   C10
+	  C10  H101
+	  C10  H102
+	  C10   C11
+	  C11  H111
+	  C11  H112
+	  C11   C12
+	  C12  H121
+	  C12  H122
+	  C12   C13
+	  C13  H131
+	  C13  H132
+	  C13   C14
+	  C14  H141
+	  C14  H142
+	  C14  H143
+	    O     C
+	   C1    O1
+  [ impropers ]
+	   C1    O1     N    C2
+	    N    C1    CA    HN
+	    C    CA    +N     O
+  [ cmap ]
+	   -C     N    CA     C    +N
+
