@@ -1,0 +1,10 @@
+MOLINFO STRUCTURE=ref.pdb
+
+site: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens
+CaM_EF2: GROUP NDX_FILE=index.ndx NDX_GROUP=CAM_EF2
+
+site_center: COM ATOMS=site
+CaM_center: COM ATOMS=CaM_EF2
+
+d1: DISTANCE ATOMS=site_center,CaM_center 
+PRINT ARG=d1 FILE=DIST_CM

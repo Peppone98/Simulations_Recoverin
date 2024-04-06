@@ -1,0 +1,63 @@
+WHOLEMOLECULES ENTITY0=1-3261 ENTITY1=3436-3442
+FIT_TO_TEMPLATE REFERENCE=npt.gro TYPE=OPTIMAL
+
+# Group definition
+prot_noh: GROUP NDX_FILE=index.ndx NDX_GROUP=Protein_noh
+ref: GROUP NDX_FILE=index.ndx NDX_GROUP=C-alpha
+site: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens
+CaM_EF2: GROUP NDX_FILE=index.ndx NDX_GROUP=CAM_EF2
+
+WRAPAROUND ATOMS=CaM_EF2 AROUND=prot_noh
+
+ref_center: COM ATOMS=ref
+site_center: COM ATOMS=site
+CaM_center: COM ATOMS=CaM_EF2
+
+ref_coord: POSITION ATOM=ref_center NOPBC
+site_coord: POSITION ATOM=site_center NOPBC
+CaM_coord: POSITION ATOM=CaM_center NOPBC
+
+
+Delta_x: MATHEVAL ARG=CaM_coord.x,site_coord.x FUNC=x-y PERIODIC=NO
+Delta_y: MATHEVAL ARG=CaM_coord.y,site_coord.y FUNC=x-y PERIODIC=NO
+Delta_z: MATHEVAL ARG=CaM_coord.z,site_coord.z FUNC=x-y PERIODIC=NO
+
+rho: MATHEVAL ARG=Delta_x,Delta_y,Delta_z FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+theta: MATHEVAL ARG=Delta_z,rho FUNC=acos(x/y) PERIODIC=0,pi
+phi: MATHEVAL ARG=Delta_x,Delta_y FUNC=atan2(y,x) PERIODIC=-pi/2,pi/2
+
+
+rmsd: RMSD REFERENCE=npt_ca.gro TYPE=OPTIMAL
+
+# Restraining potential of the section of sphere
+restr_rho: UPPER_WALLS ARG=rho AT=3.0 KAPPA=20000 OFFSET=0
+restr_theta_up: UPPER_WALLS ARG=theta AT=pi/3 KAPPA=20000 OFFSET=0
+restr_theta_low: LOWER_WALLS ARG=theta AT=-pi/3 KAPPA=20000 OFFSET=0
+restr_rmsd: UPPER_WALLS ARG=rmsd AT=0.10 EXP=1 KAPPA=20000 OFFSET=0
+
+
+# Metadynamics
+METAD ...
+ARG=rho,theta,phi
+GRID_MIN=0,-pi/8,-5*pi/8
+GRID_MAX=3.2,9*pi/8,9*pi/8
+SIGMA=0.1,pi/16,pi/8
+HEIGHT=1.2
+PACE=500 #MD steps, every 1 ps
+BIASFACTOR=10
+TEMP=310
+LABEL=metad
+CALC_RCT
+... METAD
+
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=500
+PRINT ARG=restr_rho.*,restr_rmsd.* FILE=sphere_restraint.dat STRIDE=500
+PRINT ARG=ref_coord.x,ref_coord.y,ref_coord.z FILE=ref_coord.dat STRIDE=500
+PRINT ARG=CaM_coord.x,CaM_coord.y,CaM_coord.z FILE=CaM_coord.dat STRIDE=500
+PRINT ARG=site_coord.x,site_coord.y,site_coord.z FILE=site_coord.dat STRIDE=500
+PRINT ARG=rho,theta,phi FILE=rtp_coord.dat STRIDE=500
+PRINT ARG=rmsd FILE=rmsd.dat STRIDE=500
+
+DUMPMASSCHARGE FILE=mcfile
+
+FLUSH STRIDE=500
