@@ -22,6 +22,8 @@ https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/cd7b8e35-40c
 ![smaller_funnel](https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/8682b707-64f4-400e-aba8-b8019a9dfc30)
 *Representation of the funnel restraint*
 
+![CaM_coordinated](https://github.com/Peppone98/Simulations_Recoverin/assets/117660597/a7d15b46-28a6-452f-b960-8141bad0ac67)
+*Multisite calcium coordinated by the neighboring residues*
 
 # Observations 
 
