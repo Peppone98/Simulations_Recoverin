@@ -33,20 +33,20 @@ rmsd: RMSD REFERENCE=npt_ca.pdb TYPE=OPTIMAL
 c: COORDINATION GROUPA=CaM_EF2 GROUPB=pocket R_0=0.45
 
 fps: FUNNEL_PS ...
-   LIGAND=lig
-   REFERENCE=pocket.pdb 
-   ANCHOR=1196
-   POINTS=
+   LIGAND=CaM_center
+   REFERENCE=pocket_noh.pdb 
+   ANCHOR=1197
+   POINTS=3.818,4.902,5.079,3.567,4.882,5.918
 ...
 
 
 funnel: FUNNEL ...
    ARG=fps.lp,fps.ld 
    ZCC=2.5
-   ALPHA=0.5 
+   ALPHA=0.4 
    RCYL=0.2 
    MINS=0.0 
-   MAXS=6.0 
+   MAXS=4.0 
    KAPPA=30000  
    NBINS=500 
    NBINZ=500
@@ -54,38 +54,27 @@ funnel: FUNNEL ...
 ...
 
 
-# Define the group of atoms 
-cm_prot: COM ATOMS=1-3261
-cm_O: COM ATOMS=1175,1196,1222,1245,1330,1331
-d1: DISTANCE ATOMS=cm_O,lig
-d2: DISTANCE ATOMS=cm_prot,lig
 
-
-# Define the multiple walkers metadynamics
+# Define the metadynamics
 metad: METAD ... 
-   ARG=d1
-   PACE=10000 
+   ARG=rho,theta,phi
+   PACE=500 
 
    # These parameters change in the four simulations
-   HEIGHT=1.5 
-   BIASFACTOR=20  
+   HEIGHT=1.2 
+   BIASFACTOR=10  
 
-   # From 10 ns of unbiased simulation (in nm)
-   SIGMA=0.012 
+   # Width of Gaussians (in nm)
+   SIGMA=0.01,pi/128.,pi/64. 
 
    # Use a "large" grid
-   GRID_MIN=0 
-   GRID_MAX=7.0
+   GRID_MIN=0.,0.,-pi 
+   GRID_MAX=4.0,pi,pi
 
    # Recover the c(t) for reweighting
    CALC_RCT
 ...
 
-
-rmsd: RMSD ...
-      REFERENCE=ref_CA.pdb 
-      TYPE=OPTIMAL
-...
 
 
 # Restraint on the rmsd
@@ -101,7 +90,7 @@ uwall-rmsd: UPPER_WALLS ...
 # Restraint the position of the ligand inside the funnel
 lwall: LOWER_WALLS ...
    ARG=fps.lp 
-   AT=0.1 
+   AT=0.2 
    KAPPA=40000 
    EXP=2 
    OFFSET=0
@@ -110,10 +99,25 @@ lwall: LOWER_WALLS ...
 
 uwall: UPPER_WALLS ...
    ARG=fps.lp 
-   AT=6.0 
+   AT=3.8 
    KAPPA=40000 
    EXP=2 
    OFFSET=0
 ... 
 
-PRINT STRIDE=500 ARG=* FILE=COLVAR
+#PRINT STRIDE=500 ARG=* FILE=COLVAR
+
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=500
+PRINT ARG=pocket_coord.x,pocket_coord.y,pocket_coord.z FILE=pocket_coord.dat STRIDE=500
+PRINT ARG=CaM_coord.x,CaM_coord.y,CaM_coord.z FILE=CaM_coord.dat STRIDE=500
+PRINT ARG=site_coord.x,site_coord.y,site_coord.z FILE=site_coord.dat STRIDE=500
+PRINT ARG=rho,theta,phi FILE=rtp_coord.dat STRIDE=500
+PRINT ARG=rmsd FILE=rmsd.dat STRIDE=500
+PRINT ARG=c FILE=coord_number_45.dat STRIDE=500
+
+# Print restraints
+PRINT ARG=lwall.*,uwall.*,uwall-rmsd.*,fps.*,funnel.bias FILE=restraints.dat STRIDE=500
+
+DUMPMASSCHARGE FILE=mcfile
+
+FLUSH STRIDE=500

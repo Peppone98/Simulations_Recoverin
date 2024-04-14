@@ -1,0 +1,46 @@
+MOLINFO STRUCTURE=ref.pdb 
+
+# Define the group of atoms 
+c1: CENTER ATOMS=1175,1196,1222,1245,1330,1331
+c2: CENTER ATOMS=3262
+d1: DISTANCE ATOMS=c1,c2
+
+
+# Define the multiple walkers
+metad: METAD ... 
+   ARG=d1
+   PACE=500 
+   HEIGHT=1.5 
+   BIASFACTOR=10  
+   SIGMA=0.007 
+
+   # Shared hills file
+   FILE=HILLS_shared
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=3.5
+
+   # call the MPI walkers 
+   WALKERS_MPI
+
+   # I have 8 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+# Set the wall
+uwall: UPPER_WALLS ...
+   ARG=d1
+   AT=3.0
+   KAPPA=10000
+   EXP=2
+   EPS=1
+   OFFSET=0
+...
+
+DUMPMASSCHARGE FILE=mcfile
+
+PRINT ARG=d1,metad.bias,metad.rbias,metad.rct FILE=COLVAR STRIDE=500
