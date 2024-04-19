@@ -5,7 +5,7 @@ First of all, I have to enlarge the box dimensions. To this aim, I use the `.tcl
 ```
 not water and not resname POT and not resname CLA
 ```
-to save the `.pdb`. All the atoms in the pdb should already have thei chain ID assigned. Moreover, the calcium is already labelled as `CA` (as Charmm-gui wants). Remember that the atom IDs of the two calcium ions are now 3303 and 3304.
+to save the `.pdb`. All the atoms in the pdb should already have their chain ID assigned. Moreover, the calcium is already labelled as `CA` (as Charmm-gui wants). Remember that the atom IDs of the two calcium ions are now 3303 and 3304.
 
 Note that all the lipids in the `membr_Rec.pdb` file have the chain identifier equal to `B`. 
 
