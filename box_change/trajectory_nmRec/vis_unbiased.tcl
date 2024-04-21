@@ -9,9 +9,9 @@ mol top $molID1
 
 # Represent the protein
 mol representation NewCartoon
-mol color ColorID 0
+mol color ColorID 6
 mol selection "protein"
-mol material Opaque
+mol material BrushedMetal
 mol addrep top
 
 # Now I highlight the six coordinant oxygens
