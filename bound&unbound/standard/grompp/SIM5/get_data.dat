@@ -1,0 +1,33 @@
+
+# Group definition
+pocket: GROUP NDX_FILE=index.ndx NDX_GROUP=pocket_noh
+site: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens
+CaM_EF2: GROUP NDX_FILE=index.ndx NDX_GROUP=Ca_EF2
+
+site_center: COM ATOMS=site
+CaM_center: COM ATOMS=CaM_EF2
+
+site_coord: POSITION ATOM=site_center NOPBC
+CaM_coord: POSITION ATOM=CaM_center NOPBC
+
+Delta_x: MATHEVAL ARG=CaM_coord.x,site_coord.x FUNC=x-y PERIODIC=NO
+Delta_y: MATHEVAL ARG=CaM_coord.y,site_coord.y FUNC=x-y PERIODIC=NO
+Delta_z: MATHEVAL ARG=CaM_coord.z,site_coord.z FUNC=x-y PERIODIC=NO
+
+rho: MATHEVAL ARG=Delta_x,Delta_y,Delta_z FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+theta: MATHEVAL ARG=Delta_z,rho FUNC=acos(x/y) PERIODIC=0.,pi
+phi: MATHEVAL ARG=Delta_x,Delta_y FUNC=atan2(y,x) PERIODIC=-pi,pi
+
+
+# RMSD and Coordination number
+c: COORDINATION GROUPA=CaM_EF2 GROUPB=pocket R_0=0.45
+
+
+PRINT ARG=CaM_coord.x,CaM_coord.y,CaM_coord.z FILE=Ca_coord.dat STRIDE=500
+PRINT ARG=site_coord.x,site_coord.y,site_coord.z FILE=site_coord.dat STRIDE=500
+PRINT ARG=rho,theta,phi FILE=rtp_coord.dat STRIDE=500
+PRINT ARG=c FILE=coord_number_45.dat STRIDE=500
+
+DUMPMASSCHARGE FILE=mcfile
+
+FLUSH STRIDE=500

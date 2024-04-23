@@ -1,0 +1,60 @@
+MOLINFO STRUCTURE=ref.pdb 
+
+# Group definition
+site: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens
+CaM_EF2: GROUP NDX_FILE=index.ndx NDX_GROUP=CAM_EF2
+
+site_center: COM ATOMS=site
+CaM_center: COM ATOMS=CaM_EF2
+
+site_coord: POSITION ATOM=site_center NOPBC
+CaM_coord: POSITION ATOM=CaM_center NOPBC
+
+Delta_x: MATHEVAL ARG=CaM_coord.x,site_coord.x FUNC=x-y PERIODIC=NO
+Delta_y: MATHEVAL ARG=CaM_coord.y,site_coord.y FUNC=x-y PERIODIC=NO
+Delta_z: MATHEVAL ARG=CaM_coord.z,site_coord.z FUNC=x-y PERIODIC=NO
+
+rho: MATHEVAL ARG=Delta_x,Delta_y,Delta_z FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+theta: MATHEVAL ARG=Delta_z,rho FUNC=acos(x/y) PERIODIC=0.,pi
+phi: MATHEVAL ARG=Delta_x,Delta_y FUNC=atan2(y,x) PERIODIC=-pi,pi
+
+# RMSD and Coordination number
+rmsd: RMSD REFERENCE=pocket_backbone.pdb TYPE=OPTIMAL
+
+
+# Define the single walker
+metad: METAD ... 
+   ARG=rho
+   PACE=500 
+   HEIGHT=1.5 
+   BIASFACTOR=10  
+   SIGMA=0.007 
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=3.5
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+# Set the wall
+uwall: UPPER_WALLS ...
+   ARG=rho
+   AT=3.0
+   KAPPA=10000
+   EXP=2
+   EPS=1
+   OFFSET=0
+...
+
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=500
+PRINT ARG=uwall.* FILE=sphere_restraint.dat STRIDE=500
+PRINT ARG=CaM_coord.x,CaM_coord.y,CaM_coord.z FILE=Ca_coord.dat STRIDE=500
+PRINT ARG=site_coord.x,site_coord.y,site_coord.z FILE=site_coord.dat STRIDE=500
+PRINT ARG=rho,theta,phi FILE=rtp_coord.dat STRIDE=500
+PRINT ARG=rmsd FILE=rmsd.dat STRIDE=500
+
+DUMPMASSCHARGE FILE=mcfile
+
+FLUSH STRIDE=500
