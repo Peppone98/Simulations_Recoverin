@@ -1,0 +1,33 @@
+;
+;	File 'topol_Ion_chain_C.itp' was generated
+;	By user: giuseppegambini (501)
+;	On host: MacBook-Air-di-Giuseppe.local
+;	At date: Thu Apr 25 21:02:49 2024
+;
+;	This is a include topology file
+;
+;	Created by:
+;	            :-) GROMACS - gmx pdb2gmx, 2021.4-giuseppegambini (-:
+;	
+;	Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+;	Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+;	Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/box_change/membr_Rec/vacuum_2
+;	Command line:
+;	  gmx pdb2gmx -f 4x_box_translated.pdb -o membr_Rec_4x.gro -ter yes -ff charmm36-feb2021_vm
+;	Force field was read from current directory or a relative path - path added.
+;
+
+[ moleculetype ]
+; Name            nrexcl
+Ion_chain_C         3
+
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue   1 MG  rtp MG   q +2.0
+     1         MG      1     MG     MG      1          2     24.305   ; qtot 2
+
+; Include Position restraint file
+#ifdef POSRES
+#include "posre_Ion_chain_C.itp"
+#endif
+

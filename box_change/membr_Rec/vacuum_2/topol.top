@@ -1,0 +1,75 @@
+;
+;	File 'topol.top' was generated
+;	By user: giuseppegambini (501)
+;	On host: MacBook-Air-di-Giuseppe.local
+;	At date: Thu Apr 25 20:54:51 2024
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	            :-) GROMACS - gmx pdb2gmx, 2021.4-giuseppegambini (-:
+;	
+;	Executable:   /usr/local/bin/../Cellar/gromacs@2021.4/2021.4/bin/gmx
+;	Data prefix:  /usr/local/bin/../Cellar/gromacs@2021.4/2021.4
+;	Working dir:  /Users/giuseppegambini/Desktop/TESI/simulations/box_change/membr_Rec/vacuum_2
+;	Command line:
+;	  gmx pdb2gmx -f 4x_box_translated.pdb -o membr_Rec_4x.gro -ter yes -ff charmm36-feb2021_vm
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./charmm36-feb2021_vm.ff/forcefield.itp"
+
+; Include chain topologies
+#include "topol_Protein_chain_A.itp"
+#include "topol_Ion_chain_E.itp"
+#include "topol_Other_chain_B.itp"
+#include "topol_Ion_chain_C.itp"
+#include "topol_Protein_chain_A2.itp"
+#include "topol_Ion_chain_E2.itp"
+#include "topol_Other_chain_B2.itp"
+#include "topol_Ion_chain_C2.itp"
+#include "topol_Protein_chain_A3.itp"
+#include "topol_Ion_chain_E3.itp"
+#include "topol_Other_chain_B3.itp"
+#include "topol_Ion_chain_C3.itp"
+#include "topol_Protein_chain_A4.itp"
+#include "topol_Ion_chain_E4.itp"
+#include "topol_Other_chain_B4.itp"
+#include "topol_Ion_chain_C4.itp"
+
+; Include water topology
+#include "./charmm36-feb2021_vm.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./charmm36-feb2021_vm.ff/ions.itp"
+
+[ system ]
+; Name
+S  C  A  M  O  R  G
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+Ion_chain_E         1
+Other_chain_B       1
+Ion_chain_C         1
+Protein_chain_A2     1
+Ion_chain_E2        1
+Other_chain_B2      1
+Ion_chain_C2        1
+Protein_chain_A3     1
+Ion_chain_E3        1
+Other_chain_B3      1
+Ion_chain_C3        1
+Protein_chain_A4     1
+Ion_chain_E4        1
+Other_chain_B4      1
+Ion_chain_C4        1
