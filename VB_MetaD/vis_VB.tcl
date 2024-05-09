@@ -40,6 +40,19 @@ mol color name
 mol material Opaque
 mol addrep top
 
+# Calcium ion in EF3
+mol representation VDW
+mol color ColorID 1
+mol selection "index 1759 or index 1758 or index 1803 or index 1882 or index 1881 or index 1730"
+mol material Opaque
+mol addrep top
+
+mol representation VDW
+mol color ColorID 4
+mol selection "resid 302 and resname CAL"
+mol material Opaque
+mol addrep top
+
 # Set up visualization settings
 display depthcue off
 display rendermode GLSL
@@ -57,15 +70,15 @@ color Display Background white
 # axes drawn no
 
 # Calculate the center of mass of the protein
-set sel [atomselect top "protein and noh and resid 74 76 78 80 85"]
+set sel [atomselect top "protein and noh"]
 set cm [measure center $sel weight mass]
 
 # Define the radius of the sphere (you can adjust this value as needed)
-set radius 30.0
+set radius 45.0
 
 # Create a VMD graphical representation of the sphere
 set mol [molinfo top get id]
-graphics $mol color green
+graphics $mol color orange
 graphics $mol sphere $cm radius $radius resolution 100
 graphics $mol material Transparent
 
