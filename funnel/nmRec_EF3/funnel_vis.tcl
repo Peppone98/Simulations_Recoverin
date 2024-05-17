@@ -1,5 +1,5 @@
 # Load your trajectory and topology
-mol new /Users/giuseppegambini/Desktop/TESI/simulations/funnel/nmRec_EF2/ref.pdb type pdb waitfor all
+mol new /Users/giuseppegambini/Desktop/TESI/simulations/funnel/nmRec_EF3/ref.pdb type pdb waitfor all
 set molID1 [molinfo top get id]
 
 # REPRESENTATION OF THE PROTEIN

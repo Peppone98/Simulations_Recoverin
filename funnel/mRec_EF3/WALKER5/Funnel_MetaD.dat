@@ -110,7 +110,7 @@ restr_rho: UPPER_WALLS ...
 # Define the multiple walkers metadynamics
 metad: METAD ... 
    ARG=Ox_rho
-   PACE=5000 
+   PACE=2500 
 
    # These parameters change in the four simulations
    HEIGHT=1.2 
@@ -163,21 +163,21 @@ Ox_dz_EF2: MATHEVAL ARG=Ca_coord_EF2.z,Ox_coord_EF2.z FUNC=x-y PERIODIC=NO
 Ox_rho_EF2: MATHEVAL ARG=Ox_dx_EF2,Ox_dy_EF2,Ox_dz_EF2 FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
 
 
-PRINT ARG=metad.* FILE=metad_data.dat STRIDE=5000
-PRINT ARG=Rg,Rg_pocket FILE=gyration.dat STRIDE=5000
-PRINT ARG=ref_coord.x,ref_coord.y,ref_coord.z FILE=ref_coord.dat STRIDE=5000
-PRINT ARG=Ox_coord.x,Ox_coord.y,Ox_coord.z FILE=Ox_coord.dat STRIDE=5000
-PRINT ARG=Ca_coord.x,Ca_coord.y,Ca_coord.z FILE=Ca_EF3_coord.dat STRIDE=5000
-PRINT ARG=Ca_coord_EF2.x,Ca_coord_EF2.y,Ca_coord_EF2.z,Ox_rho_EF2 FILE=Ca_EF2_coord.dat STRIDE=5000
-PRINT ARG=Ox_rho,Ox_theta,Ox_phi FILE=Ox_rtp_coord.dat STRIDE=5000
-PRINT ARG=CM_rho,CM_theta,CM_phi FILE=CM_rtp_coord.dat STRIDE=5000
-PRINT ARG=h,proj FILE=Ca_proj.dat STRIDE=5000
-PRINT ARG=CN_whole,CN_site FILE=all_coordination_45.dat STRIDE=5000
-PRINT ARG=rmsd,rmsd_pocket FILE=rmsd.dat STRIDE=5000
-PRINT ARG=fps.*,funnel.* FILE=Ca_EF3_funnel.dat STRIDE=5000
-PRINT ARG=lwall.*,uwall.*,restr_rho.*,uwall_rmsd.* FILE=walls.dat STRIDE=5000
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=2500
+PRINT ARG=Rg,Rg_pocket FILE=gyration.dat STRIDE=2500
+PRINT ARG=ref_coord.x,ref_coord.y,ref_coord.z FILE=ref_coord.dat STRIDE=2500
+PRINT ARG=Ox_coord.x,Ox_coord.y,Ox_coord.z FILE=Ox_coord.dat STRIDE=2500
+PRINT ARG=Ca_coord.x,Ca_coord.y,Ca_coord.z FILE=Ca_EF3_coord.dat STRIDE=2500
+PRINT ARG=Ca_coord_EF2.x,Ca_coord_EF2.y,Ca_coord_EF2.z,Ox_rho_EF2 FILE=Ca_EF2_coord.dat STRIDE=2500
+PRINT ARG=Ox_rho,Ox_theta,Ox_phi FILE=Ox_rtp_coord.dat STRIDE=2500
+PRINT ARG=CM_rho,CM_theta,CM_phi FILE=CM_rtp_coord.dat STRIDE=2500
+PRINT ARG=h,proj FILE=Ca_proj.dat STRIDE=2500
+PRINT ARG=CN_whole,CN_site FILE=all_coordination_45.dat STRIDE=2500
+PRINT ARG=rmsd,rmsd_pocket FILE=rmsd.dat STRIDE=2500
+PRINT ARG=fps.*,funnel.* FILE=Ca_EF3_funnel.dat STRIDE=2500
+PRINT ARG=lwall.*,uwall.*,restr_rho.*,uwall_rmsd.* FILE=walls.dat STRIDE=2500
 
 
 DUMPMASSCHARGE FILE=mcfile
 
-FLUSH STRIDE=5000
+FLUSH STRIDE=2500
