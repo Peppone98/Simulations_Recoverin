@@ -146,7 +146,7 @@ Ox_rho_EF2_c: DISTANCE ATOMS=Ox_center_EF2,Ca_center COMPONENTS
 
 
 PRINT ARG=metad.* FILE=metad_data.dat STRIDE=500
-PRINT ARG=Ox_rho_EF2_c.*,Ox_rho_c.* FILE=components.dat STRIDE=500
+PRINT ARG=Ox_rho_EF2,Ox_rho,Ox_rho_EF2_c.*,Ox_rho_c.* FILE=components.dat STRIDE=500
 PRINT ARG=Rg,Rg_pocket FILE=gyration.dat STRIDE=500
 PRINT ARG=ref_coord.* FILE=ref_coord.dat STRIDE=500
 PRINT ARG=Ox_coord.* FILE=Ox_coord.dat STRIDE=500
