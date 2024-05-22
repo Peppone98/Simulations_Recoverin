@@ -1,0 +1,186 @@
+WHOLEMOLECULES ENTITY0=1-3261 ENTITY1=3262 ENTITY2=3264-3497
+
+# Group definition (from index.ndx)
+ref: GROUP NDX_FILE=index.ndx NDX_GROUP=C_alpha_Rec
+grk1: GROUP NDX_FILE=index.ndx NDX_GROUP=C_alpha_GRK1
+site: GROUP NDX_FILE=index.ndx NDX_GROUP=pocket_noh_EF2  
+Oxygens: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens_EF2
+Ca_EF2: GROUP NDX_FILE=index.ndx NDX_GROUP=Ca_EF2
+Oxygens_EF3: GROUP NDX_FILE=index.ndx NDX_GROUP=Oxygens_EF3
+Ca_EF3: GROUP NDX_FILE=index.ndx NDX_GROUP=Ca_EF3
+
+
+# Definition of the funnel position (fps)
+fps: FUNNEL_PS ...
+   LIGAND=Ca_EF2
+   REFERENCE=pocket_backbone_EF2.pdb 
+   ANCHOR=1196
+   POINTS=4.738,5.104,3.949,3.993,5.348,3.806
+...
+
+# Definition of the funnel restraint
+funnel: FUNNEL ...
+   ARG=fps.lp,fps.ld 
+   ZCC=2.5
+   ALPHA=0.45 
+   RCYL=0.2 
+   MINS=0.0 
+   MAXS=5.5 
+   KAPPA=30000  
+   NBINS=500 
+   NBINZ=500
+   FILE=BIAS 
+...
+
+
+# Definition of the CM of each group
+ref_center: COM ATOMS=ref
+Ox_center: COM ATOMS=Oxygens
+site_center: COM ATOMS=site
+Ca_center: COM ATOMS=Ca_EF2
+
+# Definition of the coordinate of the CM of each group 
+ref_coord: POSITION ATOM=ref_center NOPBC
+Ox_coord: POSITION ATOM=Ox_center NOPBC
+site_coord: POSITION ATOM=site_center NOPBC
+Ca_coord: POSITION ATOM=Ca_center NOPBC
+
+# Distances with the Oxygens 
+Ox_dx: MATHEVAL ARG=Ca_coord.x,Ox_coord.x FUNC=x-y PERIODIC=NO
+Ox_dy: MATHEVAL ARG=Ca_coord.y,Ox_coord.y FUNC=x-y PERIODIC=NO
+Ox_dz: MATHEVAL ARG=Ca_coord.z,Ox_coord.z FUNC=x-y PERIODIC=NO
+Ox_rho: MATHEVAL ARG=Ox_dx,Ox_dy,Ox_dz FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+Ox_theta: MATHEVAL ARG=Ox_dz,Ox_rho FUNC=acos(x/y) PERIODIC=0.,pi
+Ox_phi: MATHEVAL ARG=Ox_dx,Ox_dy FUNC=atan2(y,x) PERIODIC=-pi,pi
+
+# Distances with the CM of the protein
+CM_dx: MATHEVAL ARG=Ca_coord.x,ref_coord.x FUNC=x-y PERIODIC=NO
+CM_dy: MATHEVAL ARG=Ca_coord.y,ref_coord.y FUNC=x-y PERIODIC=NO
+CM_dz: MATHEVAL ARG=Ca_coord.z,ref_coord.z FUNC=x-y PERIODIC=NO
+CM_rho: MATHEVAL ARG=CM_dx,CM_dy,CM_dz FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+CM_theta: MATHEVAL ARG=CM_dz,CM_rho FUNC=acos(x/y) PERIODIC=0.,pi
+CM_phi: MATHEVAL ARG=CM_dx,CM_dy FUNC=atan2(y,x) PERIODIC=-pi,pi
+
+
+# Compute the radius of gyration of the protein
+Rg_pocket: GYRATION TYPE=RADIUS ATOMS=site
+Rg_GRK1: GYRATION TYPE=RADIUS ATOMS=grk1
+Rg: GYRATION TYPE=RADIUS ATOMS=ref
+
+# Compute the RMSD of the pocket & C_alpha in the protein 
+rmsd_pocket: RMSD REFERENCE=pocket_backbone_EF2.pdb TYPE=OPTIMAL
+rmsd_GRK1: RMSD REFERENCE=GRK1_alpha.pdb TYPE=OPTIMAL
+rmsd: RMSD REFERENCE=C_alpha.pdb TYPE=OPTIMAL
+
+# Restraint on the rmsd
+uwall_rmsd: UPPER_WALLS ...
+   ARG=rmsd 
+   AT=0.12 
+   KAPPA=500000 
+   EXP=2 
+   OFFSET=0 
+...
+
+
+# Restraint the position of the ligand inside the funnel
+lwall: LOWER_WALLS ...
+   ARG=fps.lp 
+   AT=0.1 
+   KAPPA=40000 
+   EXP=2 
+   OFFSET=0
+...
+
+
+uwall: UPPER_WALLS ...
+   ARG=fps.lp 
+   AT=5.0 
+   KAPPA=40000 
+   EXP=2 
+   OFFSET=0
+... 
+
+
+# Restraining potential of the section of sphere
+restr_rho: UPPER_WALLS ...
+    ARG=Ox_rho 
+    AT=4.0 
+    KAPPA=20000 
+    OFFSET=0
+...
+
+
+# Define the multiple walkers metadynamics
+metad: METAD ... 
+   ARG=Ox_rho
+   PACE=2500 
+
+   # These parameters change in the four simulations
+   HEIGHT=1.2 
+   BIASFACTOR=20  
+
+   # From unbiased simulation (in nm)
+   SIGMA=0.007 
+
+   # Use a "large" grid
+   GRID_MIN=0 
+   GRID_MAX=8.0
+
+   # call the MPI walkers 
+   WALKERS_MPI
+
+   # I have 2 subfolders in the working directory
+   WALKERS_DIR=../
+
+   # Recover the c(t) for reweighting
+   CALC_RCT
+...
+
+
+# Coordination numbers for the Ca2+ in EF2
+CN_whole: COORDINATION GROUPA=Ca_EF2 GROUPB=ref R_0=0.45
+CN_site: COORDINATION GROUPA=Ca_EF2 GROUPB=site R_0=0.45
+
+# Compute the projections of Ca2+ (in EF2) on the axis defined by the CM and the Oxygens
+CM_Ox_dx: MATHEVAL ARG=ref_coord.x,Ox_coord.x FUNC=x-y PERIODIC=NO
+CM_Ox_dy: MATHEVAL ARG=ref_coord.y,Ox_coord.y FUNC=x-y PERIODIC=NO
+CM_Ox_dz: MATHEVAL ARG=ref_coord.z,Ox_coord.z FUNC=x-y PERIODIC=NO
+d: MATHEVAL ARG=CM_Ox_dx,CM_Ox_dy,CM_Ox_dz FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+a: MATHEVAL ARG=CM_dy,Ox_dz,CM_dz,Ox_dy VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO
+b: MATHEVAL ARG=CM_dz,Ox_dx,CM_dx,Ox_dz VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO 
+c: MATHEVAL ARG=CM_dx,Ox_dy,CM_dy,Ox_dx VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO
+h: MATHEVAL ARG=a,b,c,d VAR=x,y,z,w FUNC=(x*x+y*y+z*z)/(w*w) PERIODIC=NO
+proj: MATHEVAL ARG=d,Ox_rho,h FUNC=x+sqrt(y*y-z*z) PERIODIC=NO
+
+
+
+# Position of Ca2+ in EF3
+Ox_center_EF3: COM ATOMS=Oxygens_EF3
+Ca_center_EF3: COM ATOMS=Ca_EF3
+Ca_coord_EF3: POSITION ATOM=Ca_center_EF3 NOPBC
+Ox_coord_EF3: POSITION ATOM=Ox_center_EF3 NOPBC
+
+Ox_dx_EF3: MATHEVAL ARG=Ca_coord_EF3.x,Ox_coord_EF3.x FUNC=x-y PERIODIC=NO
+Ox_dy_EF3: MATHEVAL ARG=Ca_coord_EF3.y,Ox_coord_EF3.y FUNC=x-y PERIODIC=NO
+Ox_dz_EF3: MATHEVAL ARG=Ca_coord_EF3.z,Ox_coord_EF3.z FUNC=x-y PERIODIC=NO
+Ox_rho_EF3: MATHEVAL ARG=Ox_dx_EF3,Ox_dy_EF3,Ox_dz_EF3 FUNC=sqrt(x*x+y*y+z*z) PERIODIC=NO
+
+
+PRINT ARG=metad.* FILE=metad_data.dat STRIDE=2500
+PRINT ARG=Rg,Rg_GRK1,Rg_pocket FILE=gyration.dat STRIDE=2500
+PRINT ARG=ref_coord.x,ref_coord.y,ref_coord.z FILE=ref_coord.dat STRIDE=2500
+PRINT ARG=Ox_coord.x,Ox_coord.y,Ox_coord.z FILE=Ox_coord.dat STRIDE=2500
+PRINT ARG=Ca_coord.x,Ca_coord.y,Ca_coord.z FILE=Ca_EF2_coord.dat STRIDE=2500
+PRINT ARG=Ca_coord_EF3.x,Ca_coord_EF3.y,Ca_coord_EF3.z,Ox_rho_EF3 FILE=Ca_EF3_coord.dat STRIDE=2500
+PRINT ARG=Ox_rho,Ox_theta,Ox_phi FILE=Ox_rtp_coord.dat STRIDE=2500
+PRINT ARG=CM_rho,CM_theta,CM_phi FILE=CM_rtp_coord.dat STRIDE=2500
+PRINT ARG=h,proj FILE=Ca_proj.dat STRIDE=2500
+PRINT ARG=CN_whole,CN_site FILE=all_coordination_45.dat STRIDE=2500
+PRINT ARG=rmsd,rmsd_GRK1,rmsd_pocket FILE=rmsd.dat STRIDE=2500
+PRINT ARG=fps.*,funnel.* FILE=Ca_EF2_funnel.dat STRIDE=2500
+PRINT ARG=lwall.*,uwall.*,restr_rho.*,uwall_rmsd.* FILE=walls.dat STRIDE=2500
+
+
+DUMPMASSCHARGE FILE=mcfile
+
+FLUSH STRIDE=2500
