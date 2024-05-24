@@ -1,0 +1,14 @@
+#!/usr/bin/
+
+user=ggambini
+server=login.leonardo.cineca.it
+
+# scp user@remote:'/path1/file1 /path2/file2 /path3/file3' /localPath
+
+dir=/leonardo_work/IscrC_Meta-Rec/giuseppe/FUNNEL/single_walk/GRK1nmEF3
+
+file2=index.ndx
+
+
+scp $file2 $user@$server:$dir
+

@@ -55,7 +55,7 @@ CM_rho_c: DISTANCE ATOMS=ref_center,Ca_center COMPONENTS
 a: MATHEVAL ARG=CM_rho_c.y,Ox_rho_c.z,CM_rho_c.z,Ox_rho_c.y VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO
 b: MATHEVAL ARG=CM_rho_c.z,Ox_rho_c.x,CM_rho_c.x,Ox_rho_c.z VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO 
 c: MATHEVAL ARG=CM_rho_c.x,Ox_rho_c.y,CM_rho_c.y,Ox_rho_c.x VAR=x,y,z,w FUNC=x*y-z*w PERIODIC=NO
-h: MATHEVAL ARG=a,b,c,CM_Ox_EF2 VAR=x,y,z,w FUNC=(x*x+y*y+z*z)/(w*w) PERIODIC=NO
+h: MATHEVAL ARG=a,b,c,CM_Ox_EF2 VAR=x,y,z,w FUNC=sqrt(x*x+y*y+z*z)/w PERIODIC=NO
 proj: MATHEVAL ARG=CM_Ox_EF2,Ox_rho,h FUNC=x+sqrt(y*y-z*z) PERIODIC=NO
 
 

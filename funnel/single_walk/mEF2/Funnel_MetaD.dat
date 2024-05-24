@@ -14,7 +14,7 @@ fps: FUNNEL_PS ...
    LIGAND=Ca_EF2
    REFERENCE=pocket_backbone_EF2.pdb 
    ANCHOR=1237
-   POINTS=2.324,5.505,7.47,2.434,5.729,7.928
+   POINTS=1.828,5.296,7.791,2.434,5.729,7.928
 ...
 
 # Definition of the funnel restraint
