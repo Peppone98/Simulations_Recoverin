@@ -7,8 +7,14 @@ server=login.leonardo.cineca.it
 
 dir=/leonardo_work/IscrC_Meta-Rec/giuseppe/FUNNEL/single_walk/GRK1nmEF3
 
+
+file0=Funnel_MetaD.dat
+file1=C_alpha.pdb
 file2=index.ndx
+file3=Meta_funnel.tpr
+file4=pocket_backbone_EF3.pdb
+file5=GRK1_alpha.pdb
 
 
-scp $file2 $user@$server:$dir
+scp $file0 $file1 $file2 $file3 $file4 $file5 $user@$server:$dir
 

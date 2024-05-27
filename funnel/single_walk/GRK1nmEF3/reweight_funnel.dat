@@ -1,0 +1,35 @@
+# Read COLVAR file
+z_axis: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=fps.lp
+dist: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=fps.ld
+metad: READ FILE=data/metad_data.dat IGNORE_TIME VALUES=metad.rbias 
+bias_funnel: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=funnel.bias
+bias_lwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=lwall.bias
+bias_uwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall.bias
+bias_rho: READ FILE=data/walls.dat IGNORE_TIME VALUES=restr_rho.bias
+bias_rmsd: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall_rmsd.bias
+ 
+# Define weights
+weights: REWEIGHT_BIAS TEMP=310 ARG=metad.rbias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rho.bias,bias_rmsd.bias
+
+# Calculate histogram
+HISTOGRAM ...
+  ARG=z_axis.lp,dist.ld 
+  GRID_MIN=0.0,0.0 
+  GRID_MAX=5.0,1.4 
+  GRID_BIN=50,50 
+  KERNEL=DISCRETE 
+  LOGWEIGHTS=weights
+  UPDATE_FROM=110000
+  LABEL=hh1   
+... HISTOGRAM
+
+# Print histograms to file
+DUMPGRID GRID=hh1 FILE=HISTO_FUNNEL FMT=%24.16e 
+
+# Convert histograms h(s) to free energies F(s) = -kBT * log(h(s))
+f_reweighted: CONVERT_TO_FES GRID=hh1 TEMP=310
+
+# Print out the free energies F(s)
+DUMPGRID GRID=f_reweighted FILE=F_REW_FUNNEL.dat 
+
+# Can be called with "plumed driver --plumed reweight_funnel.dat --noatoms > plumed.out"

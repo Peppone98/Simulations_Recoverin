@@ -157,4 +157,4 @@ PRINT ARG=lwall.*,uwall.*,restr_rho.*,uwall_rmsd.* FILE=walls.dat STRIDE=500
 
 DUMPMASSCHARGE FILE=mcfile
 
-FLUSH STRIDE=2500
+FLUSH STRIDE=500
