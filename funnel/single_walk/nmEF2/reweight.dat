@@ -18,7 +18,7 @@ HISTOGRAM ...
   GRID_BIN=100 
   KERNEL=DISCRETE 
   LOGWEIGHTS=weights
-  UPDATE_FROM=200000
+  UPDATE_FROM=600000
   LABEL=hh1   
 ... HISTOGRAM
 
@@ -29,6 +29,6 @@ DUMPGRID GRID=hh1 FILE=HISTO FMT=%24.16e
 f_reweighted: CONVERT_TO_FES GRID=hh1 TEMP=310
 
 # Print out the free energies F(s)
-DUMPGRID GRID=f_reweighted FILE=F_REW.dat 
+DUMPGRID GRID=f_reweighted FILE=F_REW_0.dat 
 
 # Can be called with "plumed driver --plumed reweight.dat --noatoms > plumed.out"

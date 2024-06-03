@@ -1,0 +1,34 @@
+# Read COLVAR file
+distance: READ FILE=data/HILLS IGNORE_TIME VALUES=Ox_rho 
+metad: READ FILE=data/metad_data.dat IGNORE_TIME VALUES=metad.bias 
+bias_funnel: READ FILE=data/Ca_EF2_funnel.dat IGNORE_TIME VALUES=funnel.bias
+bias_lwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=lwall.bias
+bias_uwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall.bias
+bias_rho: READ FILE=data/walls.dat IGNORE_TIME VALUES=restr_rho.bias
+bias_rmsd: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall_rmsd.bias
+ 
+# Define weights
+weights: REWEIGHT_BIAS TEMP=310 ARG=metad.bias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rmsd.bias
+
+# Calculate histogram
+HISTOGRAM ...
+  ARG=distance 
+  GRID_MIN=0 
+  GRID_MAX=6 
+  GRID_BIN=100 
+  KERNEL=DISCRETE 
+  LOGWEIGHTS=weights
+  UPDATE_FROM=200000
+  LABEL=hh1   
+... HISTOGRAM
+
+# Print histograms to file
+DUMPGRID GRID=hh1 FILE=HISTO FMT=%24.16e 
+
+# Convert histograms h(s) to free energies F(s) = -kBT * log(h(s))
+f_reweighted: CONVERT_TO_FES GRID=hh1 TEMP=310
+
+# Print out the free energies F(s)
+DUMPGRID GRID=f_reweighted FILE=F_REW.dat 
+
+# Can be called with "plumed driver --plumed reweight.dat --noatoms > plumed.out"
