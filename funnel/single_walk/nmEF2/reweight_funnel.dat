@@ -1,15 +1,15 @@
 # Read COLVAR file
-z_axis: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=fps.lp
-dist: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=fps.ld
+z_axis: READ FILE=data/Ca_EF2_funnel.dat IGNORE_TIME VALUES=fps.lp
+dist: READ FILE=data/Ca_EF2_funnel.dat IGNORE_TIME VALUES=fps.ld
 metad: READ FILE=data/metad_data.dat IGNORE_TIME VALUES=metad.rbias 
-bias_funnel: READ FILE=data/Ca_EF3_funnel.dat IGNORE_TIME VALUES=funnel.bias
+bias_funnel: READ FILE=data/Ca_EF2_funnel.dat IGNORE_TIME VALUES=funnel.bias
 bias_lwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=lwall.bias
 bias_uwall: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall.bias
 bias_rho: READ FILE=data/walls.dat IGNORE_TIME VALUES=restr_rho.bias
 bias_rmsd: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall_rmsd.bias
  
 # Define weights
-weights: REWEIGHT_BIAS TEMP=310 ARG=metad.rbias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rho.bias,bias_rmsd.bias
+weights: REWEIGHT_BIAS TEMP=310 ARG=metad.rbias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rmsd.bias
 
 # Calculate histogram
 HISTOGRAM ...
@@ -19,7 +19,7 @@ HISTOGRAM ...
   GRID_BIN=50,50 
   KERNEL=DISCRETE 
   LOGWEIGHTS=weights
-  UPDATE_FROM=110000
+  UPDATE_FROM=600000
   LABEL=hh1   
 ... HISTOGRAM
 
