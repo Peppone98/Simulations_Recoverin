@@ -70,4 +70,6 @@ display resetview
 # Load the tool for plotting the funnel
 source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/tooltip.tcl
 source /Users/giuseppegambini/Desktop/TESI/simulations/wt_mdyn/Funnel/tooltip/funnel.tcl
-funnel_tk
+#funnel_tk
+source /Users/giuseppegambini/Desktop/TESI/simulations/funnel/single_walk/nmEF2/ffs.tcl
+ffs_tk

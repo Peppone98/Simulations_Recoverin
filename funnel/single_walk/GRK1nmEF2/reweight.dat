@@ -8,7 +8,7 @@ bias_rho: READ FILE=data/walls.dat IGNORE_TIME VALUES=restr_rho.bias
 bias_rmsd: READ FILE=data/walls.dat IGNORE_TIME VALUES=uwall_rmsd.bias
  
 # Define weights
-weights: REWEIGHT_BIAS TEMP=310 ARG=metad.rbias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rho.bias,bias_rmsd.bias
+weights: REWEIGHT_BIAS TEMP=310 ARG=metad.rbias,bias_funnel.bias,bias_lwall.bias,bias_uwall.bias,bias_rmsd.bias
 
 # Calculate histogram
 HISTOGRAM ...

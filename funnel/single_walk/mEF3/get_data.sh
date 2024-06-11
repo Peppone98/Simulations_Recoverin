@@ -9,12 +9,12 @@ rm -r data
 mkdir data
 
 dir=/leonardo_work/IscrC_Meta-Rec/giuseppe/FUNNEL/single_walk/mEF3
-file0=metad_data.dat
+file0=BIAS
 file1=gyration.dat
-file2=Ca_EF3_funnel.dat
-file3=BIAS
+file2=rmsd.dat
+file3=metad_data.dat
 file4=all_coordination_45.dat
-file5=rmsd.dat
+file5=Ca_EF3_funnel.dat
 file6=walls.dat
 file7=HILLS
 
