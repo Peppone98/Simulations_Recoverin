@@ -2,6 +2,7 @@ FES/
 wt_mdyn/Funnel/trials/
 wt_mdyn/Funnel/tutorial_FM
 *.ps
+walls.*
 *#*
 *.tpr
 *.xtc
